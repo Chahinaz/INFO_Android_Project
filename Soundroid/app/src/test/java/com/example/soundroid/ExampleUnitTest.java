@@ -1,4 +1,4 @@
-package fr.upem.android.testapplication;
+package com.example.soundroid;
 
 import org.junit.Test;
 

@@ -1,4 +1,4 @@
-package fr.upem.android.testapplication;
+package com.example.soundroid;
 
 import android.content.Context;
 
@@ -22,6 +22,6 @@ public class ExampleInstrumentedTest {
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getInstrumentation().getTargetContext();
 
-        assertEquals("fr.upem.android.testapplication", appContext.getPackageName());
+        assertEquals("com.example.soundroid", appContext.getPackageName());
     }
 }
