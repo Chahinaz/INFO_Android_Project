@@ -1,13 +1,20 @@
 package com.example.soundroid;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.Menu;
+import android.widget.Toast;
 
+import com.example.soundroid.databaseComponents.model.Music;
+import com.example.soundroid.databaseComponents.providers.MusicViewModel;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.navigation.NavigationView;
 
+import androidx.annotation.Nullable;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
@@ -16,7 +23,10 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import java.util.List;
+
 public class MainActivity extends AppCompatActivity {
+    private MusicViewModel mMusicViewModel;
 
     private AppBarConfiguration mAppBarConfiguration;
 
@@ -45,6 +55,19 @@ public class MainActivity extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
+        mMusicViewModel = new ViewModelProvider(this).get(MusicViewModel.class);
+        mMusicViewModel.getAllMusic().observe(this, new Observer<List<Music>>() {
+            @Override
+            public void onChanged(@Nullable final List<Music> Music) {
+                String t = "";
+                for(Music m : Music){
+                    t+= m.name+" ";
+                }
+                Toast toast = Toast.makeText(getApplicationContext(),  t, Toast.LENGTH_LONG);
+                toast.show();
+            }
+        });
+        testDB();
     }
 
     @Override
@@ -59,5 +82,9 @@ public class MainActivity extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         return NavigationUI.navigateUp(navController, mAppBarConfiguration)
                 || super.onSupportNavigateUp();
+    }
+
+    private void testDB(){
+        mMusicViewModel.insert("test","test","test");
     }
 }
