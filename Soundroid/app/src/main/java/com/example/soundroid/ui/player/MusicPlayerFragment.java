@@ -24,7 +24,7 @@ public class MusicPlayerFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         musicPlayerViewModel = new ViewModelProvider(this).get(MusicPlayerViewModel.class);
-        View root = inflater.inflate(R.layout.fragment_slideshow, container, false);
+        View root = inflater.inflate(R.layout.fragment_musicplayer, container, false);
         final TextView textView = root.findViewById(R.id.text_music_player);
         musicPlayerViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
             @Override

@@ -40,4 +40,9 @@
         android:name="com.example.soundroid.ui.slideshow.SlideshowFragment"
         android:label="@string/menu_slideshow"
         tools:layout="@layout/fragment_slideshow" />
+    <fragment
+        android:id="@+id/nav_music_player"
+        android:name="com.example.soundroid.ui.player.MusicPlayerFragment"
+        android:label="@string/menu_music_player"
+        tools:layout="@layout/fragment_musicplayer" />
 </navigation>
