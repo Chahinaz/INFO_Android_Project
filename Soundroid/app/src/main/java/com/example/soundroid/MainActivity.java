@@ -1,5 +1,9 @@
 package com.example.soundroid;
 
+import android.Manifest;
+import android.app.Activity;
+import android.content.Context;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -13,6 +17,8 @@ import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.navigation.NavigationView;
 
 import androidx.annotation.Nullable;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
@@ -27,8 +33,8 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
     private MusicViewModel mMusicViewModel;
-
     private AppBarConfiguration mAppBarConfiguration;
+    private int REQUEST_EXTERNAL = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +42,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        AccesMediaStorage(getApplicationContext(),null);
         FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -67,7 +74,7 @@ public class MainActivity extends AppCompatActivity {
                 toast.show();
             }
         });
-        testDB();
+        //testDB();
     }
 
     @Override
@@ -84,7 +91,29 @@ public class MainActivity extends AppCompatActivity {
                 || super.onSupportNavigateUp();
     }
 
+    public void AccesMediaStorage(Context ctx, View view){
+        if(ContextCompat.checkSelfPermission(ctx,Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED){
+            //do thing on storage
+        }
+        else{
+            if(ActivityCompat.shouldShowRequestPermissionRationale(this,Manifest.permission.READ_EXTERNAL_STORAGE)){
+                Toast.makeText(this,"Need permissions to access your storage (music browsing)",Toast.LENGTH_SHORT).show();
+            }
+            ActivityCompat.requestPermissions(this,new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},REQUEST_EXTERNAL);
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        if(REQUEST_EXTERNAL == requestCode) {
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                //do thing on storage
+            }
+        }
+    }
+
     private void testDB(){
         mMusicViewModel.insert("test","test","test");
     }
+
 }
