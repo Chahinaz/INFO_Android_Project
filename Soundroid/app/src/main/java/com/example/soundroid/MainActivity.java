@@ -12,6 +12,7 @@ import android.widget.Toast;
 
 import com.example.soundroid.databaseComponents.model.Music;
 import com.example.soundroid.databaseComponents.providers.MusicViewModel;
+import com.example.soundroid.utils.ExternalStorageScanner;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.navigation.NavigationView;
@@ -93,7 +94,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void AccesMediaStorage(Context ctx, View view){
         if(ContextCompat.checkSelfPermission(ctx,Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED){
-            //do thing on storage
+            ExternalStorageScanner.resolve(this.getApplicationContext());
         }
         else{
             if(ActivityCompat.shouldShowRequestPermissionRationale(this,Manifest.permission.READ_EXTERNAL_STORAGE)){
@@ -107,7 +108,7 @@ public class MainActivity extends AppCompatActivity {
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
         if(REQUEST_EXTERNAL == requestCode) {
             if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                //do thing on storage
+                ExternalStorageScanner.resolve(this.getApplicationContext());
             }
         }
     }
