@@ -4,9 +4,6 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-/**
- * Created by cloud on 14/04/2020.
- */
 public class MusicPlayerViewModel extends ViewModel {
 
     private MutableLiveData<String> mText;
