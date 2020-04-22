@@ -132,10 +132,10 @@ public class MainActivity extends AppCompatActivity {
     public void displayMusicList() {
         getMusic();
         for(MusicModel music : musicList) {
-            Log.d(String.valueOf(Level.INFO), "\n\t" + music.getTitle() +
-                    "\n\t" + music.getArtist() +
-                    "\n\t" + music.getAlbum() +
-                    "\n\t" + music.getGenre());
+            Log.d(String.valueOf(Level.INFO), "\n\ttitle : " + music.getTitle() +
+                    "\n\tartist : " + music.getArtist() +
+                    "\n\talbum : " + music.getAlbum() +
+                    "\n\tgenre : " + music.getGenre());
         }
     }
 
@@ -177,32 +177,3 @@ public class MainActivity extends AppCompatActivity {
     }
 
 }
-
-/*
-    ContentResolver musicResolver = root.getContext().getContentResolver();
-    Uri musicUri = MediaStore.Audio.Media.EXTERNAL_CONTENT_URI;
-    Cursor musicCursor = musicResolver.query(musicUri,
-            null, null, null, null);
-        if(musicCursor != null && musicCursor.moveToFirst()) {
-                int idColumn = musicCursor.getColumnIndex(MediaStore.Audio.Media._ID);
-                int titleColumn = musicCursor.getColumnIndex(MediaStore.Audio.Media.TITLE);
-                int artistColumn = musicCursor.getColumnIndex(MediaStore.Audio.Media.ARTIST);
-                int albumColumn = musicCursor.getColumnIndex(MediaStore.Audio.Media.ALBUM);
-                int genreColumn = musicCursor.getColumnIndex(MediaStore.Audio.Genres.NAME);
-                do {
-                long thisId = musicCursor.getLong(idColumn);
-                String thisTitle = musicCursor.getString(titleColumn);
-                String thisArtist = musicCursor.getString(artistColumn);
-                String thisAlbum = musicCursor.getString(albumColumn);
-                String thisGenre = musicCursor.getString(genreColumn);
-                musicList.add(new MusicModel(thisId, thisTitle, thisArtist, thisAlbum, thisGenre));
-                } while (musicCursor.moveToNext());
-                }
-
-
-                for(MusicModel song : musicList) {
-                System.out.println(song.getTitle());
-                }
-
-
- */
