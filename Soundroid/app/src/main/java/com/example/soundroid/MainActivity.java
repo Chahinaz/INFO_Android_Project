@@ -6,7 +6,6 @@ import android.content.ContentResolver;
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
-import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -110,10 +109,10 @@ public class MainActivity extends AppCompatActivity {
             //do thing on storage
         }
         else{
-            if(ActivityCompat.shouldShowRequestPermissionRationale(this,Manifest.permission.READ_EXTERNAL_STORAGE)){
-                Toast.makeText(this,"Need permissions to access your storage (music browsing)",Toast.LENGTH_SHORT).show();
+            if(ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.READ_EXTERNAL_STORAGE)){
+                Toast.makeText(this,"Need permissions to access your storage (music browsing)", Toast.LENGTH_SHORT).show();
             }
-            ActivityCompat.requestPermissions(this,new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},REQUEST_EXTERNAL);
+            ActivityCompat.requestPermissions(this,new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, REQUEST_EXTERNAL);
         }
     }
 
@@ -133,7 +132,10 @@ public class MainActivity extends AppCompatActivity {
     public void displayMusicList() {
         getMusic();
         for(MusicModel music : musicList) {
-            Log.d(String.valueOf(Level.INFO), music.getTitle());
+            Log.d(String.valueOf(Level.INFO), "\n\t" + music.getTitle() +
+                    "\n\t" + music.getArtist() +
+                    "\n\t" + music.getAlbum() +
+                    "\n\t" + music.getGenre());
         }
     }
 
@@ -142,9 +144,7 @@ public class MainActivity extends AppCompatActivity {
         ContentResolver contentResolver = getContentResolver();
         @SuppressLint("Recycle") Cursor musicCursor = contentResolver.query(
                 MediaStore.Audio.Media.EXTERNAL_CONTENT_URI,
-                new String[] {
-                        MediaStore.Audio.Albums._ID, MediaStore.Audio.Albums.ALBUM_ART
-                }, null, null, null);
+                null, null, null, null);
         //int idColumn = musicCursor.getColumnIndex(MediaStore.Audio.Media._ID);
 
         Log.d(String.valueOf(Level.INFO), "\t\tCURSOR = " + musicCursor.toString());
@@ -154,7 +154,8 @@ public class MainActivity extends AppCompatActivity {
         int albumColumn = musicCursor.getColumnIndex(MediaStore.Audio.Media.ALBUM);
         // gives - 1 so problem :/
         //int genreColumn = musicCursor.getColumnIndex(MediaStore.Audio.Genres.NAME);
-        int artColumn = musicCursor.getColumnIndex(MediaStore.Audio.Albums.ALBUM_ART);
+        //
+        // int artColumn = musicCursor.getColumnIndex(MediaStore.Audio.Albums.ALBUM_ART);
 
         Log.d(String.valueOf(Level.INFO), "\t\tCURSOR = " +
                 "\ntitle column = " + titleColumn +
@@ -165,7 +166,7 @@ public class MainActivity extends AppCompatActivity {
             String artist = musicCursor.getString(artistColumn);
             String album = musicCursor.getString(albumColumn);
             String genre = "default";
-            String path = musicCursor.getString(artColumn);
+            String path = "default";
             musicList.add(new MusicModel(counter, title, artist, album, genre, path));
             counter++;
         } while (musicCursor.moveToNext());
