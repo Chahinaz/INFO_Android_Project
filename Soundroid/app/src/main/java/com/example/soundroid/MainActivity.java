@@ -18,7 +18,7 @@ import com.example.soundroid.databaseComponents.model.Music;
 import com.example.soundroid.databaseComponents.providers.MusicViewModel;
 
 import com.example.soundroid.utils.ExternalStorageScanner;
-import com.example.soundroid.ui.MusicModel;
+//import com.example.soundroid.ui.MusicModel;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
@@ -27,6 +27,7 @@ import com.google.android.material.navigation.NavigationView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
+import androidx.arch.core.util.Function;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.lifecycle.Observer;
@@ -40,14 +41,14 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Consumer;
 import java.util.logging.Level;
 
 public class MainActivity extends AppCompatActivity {
     private MusicViewModel mMusicViewModel;
     private AppBarConfiguration mAppBarConfiguration;
     private int REQUEST_EXTERNAL = 0;
-
-    List<MusicModel> musicList = new ArrayList<>();
+    private boolean permission = false;
 
     @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
     @Override
@@ -55,8 +56,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Toolbar toolbar = findViewById(R.id.toolbar);
+        AccessMediaStorage(this,null);
         setSupportActionBar(toolbar);
-        AccessMediaStorage(getApplicationContext(),null);
         FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -76,19 +77,21 @@ public class MainActivity extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
+
         mMusicViewModel = new ViewModelProvider(this).get(MusicViewModel.class);
         mMusicViewModel.getAllMusic().observe(this, new Observer<List<Music>>() {
             @Override
             public void onChanged(@Nullable final List<Music> Music) {
-                String t = "";
-                for(Music m : Music){
-                    t+= m.name+" ";
-                }
-                Toast toast = Toast.makeText(getApplicationContext(),  t, Toast.LENGTH_LONG);
-                toast.show();
+                displayMusicList(Music);
             }
         });
-        //testDB();
+
+        while(!permission){
+            if(ContextCompat.checkSelfPermission(getApplicationContext(),Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED){
+                permission = true;
+            }
+        }
+        initDB();
     }
 
     @Override
@@ -108,11 +111,12 @@ public class MainActivity extends AppCompatActivity {
     @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
     public void AccessMediaStorage(Context ctx, View view){
         if(ContextCompat.checkSelfPermission(ctx,Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED){
-            ExternalStorageScanner.resolve(this.getApplicationContext());
+            //nothing we're cool
         }
         else{
             if(ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.READ_EXTERNAL_STORAGE)){
                 Toast.makeText(this,"Need permissions to access your storage (music browsing)", Toast.LENGTH_SHORT).show();
+                //terminate activity
             }
             ActivityCompat.requestPermissions(this,new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, REQUEST_EXTERNAL);
         }
@@ -122,62 +126,23 @@ public class MainActivity extends AppCompatActivity {
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         if(REQUEST_EXTERNAL == requestCode) {
             if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                ExternalStorageScanner.resolve(this.getApplicationContext());
-                //do thing on storage
                 Toast.makeText(this, "Permission granted",Toast.LENGTH_SHORT).show();
-                displayMusicList();
-
             }
         } else {
             Toast.makeText(this, "no permission granted", Toast.LENGTH_SHORT).show();
         }
     }
 
-    public void displayMusicList() {
-        getMusic();
-        for(MusicModel music : musicList) {
-            Log.d(String.valueOf(Level.INFO), "\n\ttitle : " + music.getTitle() +
-                    "\n\tartist : " + music.getArtist() +
-                    "\n\talbum : " + music.getAlbum() +
-                    "\n\tgenre : " + music.getGenre());
-        }
+    public void displayMusicList(List<Music> mlist) {
+        for(Music m : mlist)
+            Log.i("MUSIC",m.toString());
     }
 
-    public void getMusic() {
-        int counter = 0;
-        ContentResolver contentResolver = getContentResolver();
-        @SuppressLint("Recycle") Cursor musicCursor = contentResolver.query(
-                MediaStore.Audio.Media.EXTERNAL_CONTENT_URI,
-                null, null, null, null);
-        //int idColumn = musicCursor.getColumnIndex(MediaStore.Audio.Media._ID);
-
-        Log.d(String.valueOf(Level.INFO), "\t\tCURSOR = " + musicCursor.toString());
-
-        int titleColumn = musicCursor.getColumnIndex(MediaStore.Audio.Media.TITLE);
-        int artistColumn = musicCursor.getColumnIndex(MediaStore.Audio.Media.ARTIST);
-        int albumColumn = musicCursor.getColumnIndex(MediaStore.Audio.Media.ALBUM);
-        // gives - 1 so problem :/
-        //int genreColumn = musicCursor.getColumnIndex(MediaStore.Audio.Genres.NAME);
-        //
-        // int artColumn = musicCursor.getColumnIndex(MediaStore.Audio.Albums.ALBUM_ART);
-
-        Log.d(String.valueOf(Level.INFO), "\t\tCURSOR = " +
-                "\ntitle column = " + titleColumn +
-                "\nartist column = " + artistColumn);
-        musicCursor.moveToFirst();
-        do {
-            String title = musicCursor.getString(titleColumn);
-            String artist = musicCursor.getString(artistColumn);
-            String album = musicCursor.getString(albumColumn);
-            String genre = "default";
-            String path = "default";
-            musicList.add(new MusicModel(counter, title, artist, album, genre, path));
-            counter++;
-        } while (musicCursor.moveToNext());
+    @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
+    public void initDB(){
+        //check if rigth OK
+        //do thing
+        mMusicViewModel.nuke();
+        mMusicViewModel.insertAll(ExternalStorageScanner.resolve(this.getApplicationContext()));
     }
-
-    private void testDB(){
-        mMusicViewModel.insert("test","test","test");
-    }
-
 }

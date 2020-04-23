@@ -16,11 +16,36 @@ public class Music {
     @ColumnInfo(name = "author")
     public String Author;
 
-    @ColumnInfo(name = "name")
-    public String name;
+    @ColumnInfo(name = "ImpPath")
+    public String Img;
+
+    @ColumnInfo(name = "MusicPath")
+    public String MusicPath;
+
+    @ColumnInfo(name = "Duration")
+    public String Duration;
+
+    @ColumnInfo(name = "Hash")
+    public String hash;
+
+    public String getHash() {
+        return hash;
+    }
 
     public int getUid() {
         return uid;
+    }
+
+    public String getImg() {
+        return Img;
+    }
+
+    public String getMusicPath() {
+        return MusicPath;
+    }
+
+    public String getDuration() {
+        return Duration;
     }
 
     public String getTittle() {
@@ -31,10 +56,6 @@ public class Music {
         return Author;
     }
 
-    public String getName() {
-        return name;
-    }
-
     public void setTittle(String tittle) {
         Tittle = tittle;
     }
@@ -43,7 +64,21 @@ public class Music {
         Author = author;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setDuration(String duration) {
+        Duration = duration;
     }
+
+    public void setMusicPath(String musicPath) {
+        MusicPath = musicPath;
+    }
+
+    public void setImg(String img) {
+        Img = img;
+    }
+
+    public void setHash(String hash) {
+        this.hash = hash;
+    }
+
+
 }

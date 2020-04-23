@@ -17,4 +17,7 @@ public interface MusicDao {
     @Query("SELECT * FROM music_table")
     LiveData<List<Music>> getAll();
 
+    @Query("DELETE FROM music_table")
+    public void nukeTable();
+
 }

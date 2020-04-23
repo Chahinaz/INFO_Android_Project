@@ -23,12 +23,18 @@ public class MusicViewModel extends AndroidViewModel {
 
     public LiveData<List<Music>> getAllMusic() { return mAllMusics; }
 
-    public void insert(String title,String author, String name) {
-        Music m = new Music();
-        m.setTittle(title);
-        m.setName(name);
-        m.setAuthor(author);
+    public void insert(Music m) {
         mRepository.insert(m);
+    }
+
+    public void nuke(){
+        mRepository.nuke();
+    }
+
+    public void insertAll(List<Music> mlist){
+        for(Music m : mlist){
+            insert(m);
+        }
     }
 
 

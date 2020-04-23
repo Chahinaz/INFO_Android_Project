@@ -18,11 +18,20 @@ public class MusicRepository {
         mMusicDao = db.MusicDao();
     }
 
-    void insert(final Music musi) {
+    void insert(final Music m) {
         MusicDatabase.databaseWriteExecutor.execute(new Runnable() {
             @Override
             public void run() {
-                mMusicDao.insertMusic(musi);
+                mMusicDao.insertMusic(m);
+            }
+        });
+    }
+
+    void nuke(){
+        MusicDatabase.databaseWriteExecutor.execute(new Runnable() {
+            @Override
+            public void run() {
+                mMusicDao.nukeTable();
             }
         });
     }
