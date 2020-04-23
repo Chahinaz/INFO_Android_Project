@@ -2,6 +2,8 @@ package com.example.soundroid.utils;
 
 import android.content.Context;
 import android.database.Cursor;
+import android.media.MediaMetadataRetriever;
+import android.net.Uri;
 import android.provider.MediaStore;
 import android.util.Log;
 
@@ -25,7 +27,7 @@ public class ExternalStorageScanner {
                     MediaStore.Audio.Media.DATA,
                     MediaStore.Audio.Media.DISPLAY_NAME,
                     MediaStore.Audio.Media.ALBUM_ID,
-                    MediaStore.Audio.Media.DURATION
+                    MediaStore.Audio.Media.DURATION,
             };
             String selection = MediaStore.Audio.Media.IS_MUSIC + " != 0";
             Cursor cursor = ctx.getContentResolver().query(
@@ -43,13 +45,28 @@ public class ExternalStorageScanner {
                     m.setTittle(cursor.getString(2));
                     m.setDuration(cursor.getString(6));
                     m.setHash(md5(m.Author+m.Tittle+m.MusicPath));
-                    m.setImg("unimplementd");
                     m.setMusicPath(cursor.getString(cursor.getColumnIndex(MediaStore.Audio.Media.DATA)));
+
+                    String cover = getAlbumUri(ctx,cursor.getString(0));
+                    if(cover.isEmpty() ){
+                        m.setImg("unimplemented");
+                    }else{
+                        m.setImg(cover);
+                    }
                     musicInStorage.add(m);
                 }
             }
         }
         return musicInStorage;
+    }
+
+    public static String getAlbumUri(Context mContext, String album_id){
+        if(mContext!=null) {
+            Uri sArtworkUri = Uri.parse("content://media/external/audio/albumart");
+            Uri imageUri = Uri.withAppendedPath(sArtworkUri, String.valueOf(album_id));
+            return imageUri.toString();
+        }
+        return null;
     }
 
     //Credits to https://stackoverflow.com/questions/3934331/how-to-hash-a-string-in-android
