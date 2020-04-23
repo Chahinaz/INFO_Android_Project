@@ -14,8 +14,8 @@ import androidx.lifecycle.ViewModelProviders;
 
 import com.example.soundroid.R;
 
-public class HomeFragment extends Fragment {
-
+/** TODO */
+public class HomeSecondFragment extends Fragment {
     private HomeViewModel homeViewModel;
 
     public View onCreateView(@NonNull LayoutInflater inflater,

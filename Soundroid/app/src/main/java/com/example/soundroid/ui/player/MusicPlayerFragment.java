@@ -72,7 +72,3 @@ public class MusicPlayerFragment extends Fragment {
         super.onStart();
     }
 }
-
-/*
-
- */

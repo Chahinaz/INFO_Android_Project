@@ -17,6 +17,10 @@
             android:icon="@drawable/ic_menu_slideshow"
             android:title="@string/menu_slideshow" />
         <item
+            android:id="@+id/nav_playlist"
+            android:icon="@drawable/ic_menu_playlist"
+            android:title="@string/menu_playlist" />
+        <item
             android:id="@+id/nav_music_player"
             android:icon="@drawable/ic_audiotrack_black_24dp"
             android:title="@string/menu_music_player" />
