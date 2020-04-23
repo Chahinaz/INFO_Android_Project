@@ -80,5 +80,16 @@ public class Music {
         this.hash = hash;
     }
 
-
+    @Override
+    public String toString() {
+        return "Music{" +
+                "uid=" + uid +
+                ", Tittle='" + Tittle + '\'' +
+                ", Author='" + Author + '\'' +
+                ", Img='" + Img + '\'' +
+                ", MusicPath='" + MusicPath + '\'' +
+                ", Duration='" + Duration + '\'' +
+                ", hash='" + hash + '\'' +
+                '}';
+    }
 }

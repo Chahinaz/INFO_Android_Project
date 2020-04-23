@@ -7,6 +7,8 @@ import android.util.Log;
 
 import com.example.soundroid.databaseComponents.model.Music;
 
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -40,13 +42,34 @@ public class ExternalStorageScanner {
                     m.setAuthor(cursor.getString(1));
                     m.setTittle(cursor.getString(2));
                     m.setDuration(cursor.getString(6));
-                    m.setImg("unimplemented");
+                    m.setHash(md5(m.Author+m.Tittle+m.MusicPath));
+                    m.setImg("unimplementd");
                     m.setMusicPath(cursor.getString(cursor.getColumnIndex(MediaStore.Audio.Media.DATA)));
                     musicInStorage.add(m);
                 }
             }
         }
         return musicInStorage;
+    }
+
+    //Credits to https://stackoverflow.com/questions/3934331/how-to-hash-a-string-in-android
+    public static String md5(String s) {
+        try {
+            // Create MD5 Hash
+            MessageDigest digest = java.security.MessageDigest.getInstance("MD5");
+            digest.update(s.getBytes());
+            byte messageDigest[] = digest.digest();
+
+            // Create Hex String
+            StringBuffer hexString = new StringBuffer();
+            for (int i=0; i<messageDigest.length; i++)
+                hexString.append(Integer.toHexString(0xFF & messageDigest[i]));
+            return hexString.toString();
+
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        }
+        return "";
     }
 
 
