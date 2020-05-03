@@ -4,6 +4,7 @@ import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.ContentResolver;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.os.Build;
@@ -17,6 +18,7 @@ import android.widget.Toast;
 import com.example.soundroid.databaseComponents.model.Music;
 import com.example.soundroid.databaseComponents.providers.MusicViewModel;
 
+import com.example.soundroid.service.PlayerService;
 import com.example.soundroid.utils.ExternalStorageScanner;
 //import com.example.soundroid.ui.MusicModel;
 
@@ -92,6 +94,11 @@ public class MainActivity extends AppCompatActivity {
             }
         }
         initDB();
+        startMyService();
+    }
+
+    private void startMyService() {
+        startService(new Intent(this, PlayerService.class));
     }
 
     @Override

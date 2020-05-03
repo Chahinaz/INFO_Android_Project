@@ -36,7 +36,4 @@ public class MusicViewModel extends AndroidViewModel {
             insert(m);
         }
     }
-
-
-
 }
