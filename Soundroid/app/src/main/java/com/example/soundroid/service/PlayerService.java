@@ -18,10 +18,11 @@ public class PlayerService extends Service {
     private final IBinder mBinder = new LocalBinder();
 
     public class LocalBinder extends Binder {
-        PlayerService getService() {
+        public PlayerService getService() {
             return PlayerService.this;
         }
         //add funct to communicate beetween service and app here
+
     }
 
     @Nullable
@@ -34,9 +35,6 @@ public class PlayerService extends Service {
     public int onStartCommand(Intent intent, int flags, int startId) {
         super.onStartCommand(intent, flags, startId);
         //init media player here
-        player = MediaPlayer.create(this,Settings.System.DEFAULT_RINGTONE_URI);
-        player.setLooping(true);
-        player.start();
         return START_STICKY;
     }
 
@@ -44,5 +42,12 @@ public class PlayerService extends Service {
     public void onDestroy() {
         super.onDestroy();
         player.stop();
+    }
+
+    public void playRingTone(){
+        player = MediaPlayer.create(getApplicationContext(),Settings.System.DEFAULT_RINGTONE_URI);
+        player.setLooping(true);
+        player.start();
+
     }
 }

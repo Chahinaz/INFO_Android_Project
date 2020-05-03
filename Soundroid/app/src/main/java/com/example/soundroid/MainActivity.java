@@ -2,17 +2,21 @@ package com.example.soundroid;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
+import android.content.ComponentName;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.ServiceConnection;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.IBinder;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
 import android.view.Menu;
+import android.widget.Button;
 import android.widget.Toast;
 
 import com.example.soundroid.databaseComponents.model.Music;
@@ -51,6 +55,23 @@ public class MainActivity extends AppCompatActivity {
     private AppBarConfiguration mAppBarConfiguration;
     private int REQUEST_EXTERNAL = 0;
     private boolean permission = false;
+    private PlayerService mBoundService;
+    boolean mBound = false;
+    private ServiceConnection mConnection = new ServiceConnection() {
+
+        @Override
+        public void onServiceConnected(ComponentName name, IBinder service) {
+            PlayerService.LocalBinder binder = (PlayerService.LocalBinder) service;
+            mBoundService = binder.getService();
+            mBound = true;
+        }
+
+        @Override
+        public void onServiceDisconnected(ComponentName name) {
+            mBoundService = null;
+            mBound = false;
+        }
+    };
 
     @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
     @Override
@@ -64,8 +85,11 @@ public class MainActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                if (mBound) {
+                    mBoundService.playRingTone();
+                }
+                /*Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show();*/
             }
         });
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
@@ -94,11 +118,13 @@ public class MainActivity extends AppCompatActivity {
             }
         }
         initDB();
-        startMyService();
     }
 
-    private void startMyService() {
-        startService(new Intent(this, PlayerService.class));
+    @Override
+    protected void onStart() {
+        super.onStart();
+        bindService(new Intent(this, PlayerService.class), mConnection,
+                Context.BIND_AUTO_CREATE);
     }
 
     @Override
