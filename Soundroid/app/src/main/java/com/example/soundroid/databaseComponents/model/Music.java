@@ -5,12 +5,16 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.media.MediaMetadataRetriever;
 import android.os.Build;
+import android.util.Log;
 import android.util.Size;
 
 import androidx.annotation.RequiresApi;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
+
+import java.io.IOException;
+import java.io.InputStream;
 
 @Entity(tableName = "music_table")
 public class Music {
@@ -35,6 +39,8 @@ public class Music {
 
     @ColumnInfo(name = "Hash")
     public String hash;
+
+    private transient Bitmap cachedDefaultBitmap;
 
     public String getHash() {
         return hash;
@@ -102,14 +108,27 @@ public class Music {
     }
 
     @RequiresApi(api = Build.VERSION_CODES.Q)
-    public Bitmap getThumbnail(Context ctx, Size sz)  {
-        /*Bitmap albumArt = ctx.getContentResolver().loadThumbnail(Uri.parse(MusicPath), sz, null);
-        return albumArt;*/
-
+    public Bitmap getThumbnail(Context context)  {
         MediaMetadataRetriever mmr = new MediaMetadataRetriever();
         mmr.setDataSource(MusicPath);
         byte [] data = mmr.getEmbeddedPicture();
-        Bitmap bitmap = BitmapFactory.decodeByteArray(data, 0, data.length);
-        return bitmap;
+
+        if(data != null) {
+            return BitmapFactory.decodeByteArray(data, 0, data.length);
+        } else {
+            return getDefaultThumbnail(context);
+        }
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
+    private Bitmap getDefaultThumbnail(Context context) {
+        if (cachedDefaultBitmap == null) {
+            try (InputStream inputStream = context.getAssets().open("pikawhat.png")) {
+                cachedDefaultBitmap = BitmapFactory.decodeStream(inputStream);
+            } catch (IOException e) {
+                Log.e(String.valueOf(Log.ERROR), "IO exception while opening inputStream");
+            }
+        }
+        return cachedDefaultBitmap;
     }
 }

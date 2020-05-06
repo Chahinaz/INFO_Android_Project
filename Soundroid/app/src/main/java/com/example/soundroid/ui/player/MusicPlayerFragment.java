@@ -1,17 +1,8 @@
 package com.example.soundroid.ui.player;
 
-import android.content.ContentResolver;
-import android.content.Context;
-import android.database.Cursor;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.Color;
 import android.media.MediaMetadataRetriever;
-import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Environment;
-import android.provider.MediaStore;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,11 +13,16 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.example.soundroid.MainActivity;
 import com.example.soundroid.R;
+import com.example.soundroid.databaseComponents.model.Music;
+
+import java.util.logging.Level;
 
 /**
  * Created by cloud on 14/04/2020.
@@ -59,12 +55,34 @@ public class MusicPlayerFragment extends Fragment {
             }
         });
 
+        ((MainActivity) requireActivity()).mMusicViewModel.getMusicById(2)
+                .observe(getViewLifecycleOwner(), new Observer<Music>() {
+            @RequiresApi(api = Build.VERSION_CODES.KITKAT)
+            @Override
+            public void onChanged(@Nullable final Music music) {
+                if(music == null) {
+                    Log.d(String.valueOf(Level.INFO), "music not found");
+                } else {
+                    displayMusic(music);
+
+                }
+            }
+        });
+
         album_art = root.findViewById(R.id.album_art);
         album = root.findViewById(R.id.Album);
         artist = root.findViewById(R.id.artist_name);
         genre = root.findViewById(R.id.genre);
 
         return root;
+    }
+
+    private void displayMusic(Music music) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+            album_art.setImageBitmap(music.getThumbnail(getContext()));
+        }
+        artist.setText(music.getAuthor());
+        album.setText("default album");
     }
 
 

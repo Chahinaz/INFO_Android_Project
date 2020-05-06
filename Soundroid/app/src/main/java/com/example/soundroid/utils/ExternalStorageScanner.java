@@ -2,10 +2,8 @@ package com.example.soundroid.utils;
 
 import android.content.Context;
 import android.database.Cursor;
-import android.media.MediaMetadataRetriever;
 import android.net.Uri;
 import android.provider.MediaStore;
-import android.util.Log;
 
 import com.example.soundroid.databaseComponents.model.Music;
 

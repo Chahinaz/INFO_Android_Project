@@ -12,4 +12,9 @@
     <string name="menu_slideshow">Slideshow</string>
     <string name="menu_playlist">Playlist</string>
     <string name="menu_music_player">Music Player</string>
+    <string name="default_image">Album Picture Not Found</string>
+    <string name="default_name">default name</string>
+    <string name="default_artist">default artist</string>
+    <string name="default_album">default album</string>
+    <string name="music_list">Music List</string>
 </resources>

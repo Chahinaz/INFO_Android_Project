@@ -1,24 +1,18 @@
 package com.example.soundroid;
 
 import android.Manifest;
-import android.annotation.SuppressLint;
 import android.content.ComponentName;
-import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
 import android.content.pm.PackageManager;
-import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.IBinder;
-import android.provider.MediaStore;
 import android.util.Log;
-import android.util.Size;
 import android.view.View;
 import android.view.Menu;
-import android.widget.Button;
 import android.widget.Toast;
 
 import com.example.soundroid.databaseComponents.model.Music;
@@ -26,16 +20,13 @@ import com.example.soundroid.databaseComponents.providers.MusicViewModel;
 
 import com.example.soundroid.service.PlayerService;
 import com.example.soundroid.utils.ExternalStorageScanner;
-//import com.example.soundroid.ui.MusicModel;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.navigation.NavigationView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
-import androidx.arch.core.util.Function;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.lifecycle.Observer;
@@ -48,14 +39,10 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
-import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.function.Consumer;
-import java.util.logging.Level;
 
 public class MainActivity extends AppCompatActivity {
-    private MusicViewModel mMusicViewModel;
+    public MusicViewModel mMusicViewModel;
     private AppBarConfiguration mAppBarConfiguration;
     private int REQUEST_EXTERNAL = 0;
     private boolean permission = false;
@@ -98,19 +85,21 @@ public class MainActivity extends AppCompatActivity {
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         mAppBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.nav_home, R.id.nav_gallery, R.id.nav_slideshow, R.id.nav_music_player)
+                R.id.nav_home, R.id.nav_gallery, R.id.nav_slideshow, R.id.nav_music_player, R.id.nav_music_list)
                 .setDrawerLayout(drawer)
                 .build();
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
 
+
         mMusicViewModel = new ViewModelProvider(this).get(MusicViewModel.class);
         mMusicViewModel.getAllMusic().observe(this, new Observer<List<Music>>() {
             @RequiresApi(api = Build.VERSION_CODES.Q)
             @Override
-            public void onChanged(@Nullable final List<Music> Music) {
-                displayMusicList(Music);
+            public void onChanged(@Nullable final List<Music> musicList) {
+                assert musicList != null;
+                displayMusicList(musicList);
             }
         });
 
@@ -172,14 +161,14 @@ public class MainActivity extends AppCompatActivity {
     public void displayMusicList(List<Music> mlist) {
         for(Music m : mlist){
             Log.i("MUSIC",m.toString());
-            Bitmap b = m.getThumbnail(getApplicationContext(),new Size(100, 100));
+            Bitmap b = m.getThumbnail(this);
             b.getWidth();
         }
     }
 
     @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
     public void initDB(){
-        //check if rigth OK
+        //check if right OK
         //do thing
         mMusicViewModel.nuke();
         mMusicViewModel.insertAll(ExternalStorageScanner.resolve(this.getApplicationContext()));

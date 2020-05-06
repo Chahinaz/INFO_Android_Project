@@ -52,4 +52,11 @@
         android:name="com.example.soundroid.ui.player.MusicPlayerFragment"
         android:label="@string/menu_music_player"
         tools:layout="@layout/fragment_musicplayer" />
+
+    <fragment
+        android:id="@+id/nav_music_list"
+        android:name="com.example.soundroid.musiclist.MusicListFragment"
+        android:label="Music List"
+        tools:layout="@layout/fragment_music_list"
+        />
 </navigation>
