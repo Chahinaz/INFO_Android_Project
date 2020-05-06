@@ -55,8 +55,8 @@ public class MainActivity extends AppCompatActivity {
     private AppBarConfiguration mAppBarConfiguration;
     private int REQUEST_EXTERNAL = 0;
     private boolean permission = false;
-    private PlayerService mBoundService;
-    boolean mBound = false;
+    public PlayerService mBoundService;
+    public boolean mBound = false;
     private ServiceConnection mConnection = new ServiceConnection() {
 
         @Override
@@ -85,9 +85,6 @@ public class MainActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (mBound) {
-                    mBoundService.playRingTone();
-                }
                 /*Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();*/
             }
@@ -177,5 +174,13 @@ public class MainActivity extends AppCompatActivity {
         //do thing
         mMusicViewModel.nuke();
         mMusicViewModel.insertAll(ExternalStorageScanner.resolve(this.getApplicationContext()));
+    }
+
+    //====== Exposed funct for service ==============================//
+
+    public void AddSongWrap(Music m){
+        if (mBound) {
+            mBoundService.playRingTone();
+        }
     }
 }
