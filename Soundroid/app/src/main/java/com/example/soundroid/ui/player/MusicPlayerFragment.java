@@ -34,6 +34,7 @@ public class MusicPlayerFragment extends Fragment {
     private TextView title;
     private TextView album;
     private TextView artist;
+    private TextView duration;
 
     private Button playButton;
     private boolean isPlaying = false;
@@ -69,6 +70,7 @@ public class MusicPlayerFragment extends Fragment {
         artist = root.findViewById(R.id.artist_name_player);
         album = root.findViewById(R.id.album_name_player);
         album_art = root.findViewById(R.id.album_art_player);
+        duration = root.findViewById(R.id.song_duration_text);
 
         setButtonListeners(root);
 
@@ -82,6 +84,14 @@ public class MusicPlayerFragment extends Fragment {
         title.setText(music.getTitle());
         artist.setText(music.getAuthor());
         album.setText("unknown album");
+        duration.setText(getTime(music.getDuration()));
+    }
+
+    private String getTime(String duration) {
+        int seconds = Integer.parseInt(duration) / 1000;
+        int minutes = seconds / 60;
+        seconds -= (minutes*60);
+        return minutes + ":" + seconds;
     }
 
     private void setButtonListeners(View root) {
@@ -122,12 +132,14 @@ public class MusicPlayerFragment extends Fragment {
         if(!isPlaying) {
             Toast toast = Toast.makeText(v.getContext(), "Play music", Toast.LENGTH_SHORT);
             toast.show();
-            playButton.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_media_pause, 0, 0, 0);
+            playButton.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_media_pause,
+                    0, 0, 0);
             isPlaying = true;
         } else {
             Toast toast = Toast.makeText(v.getContext(), "Pause music", Toast.LENGTH_SHORT);
             toast.show();
-            playButton.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_media_play, 0, 0, 0);
+            playButton.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_media_play,
+                    0, 0, 0);
             isPlaying = false;
         }
     }
@@ -136,12 +148,14 @@ public class MusicPlayerFragment extends Fragment {
         if(!isMute) {
             Toast toast = Toast.makeText(v.getContext(), "Mute", Toast.LENGTH_SHORT);
             toast.show();
-            toggleMute.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_media_mute, 0, 0, 0);
+            toggleMute.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_media_unmute,
+                    0, 0, 0);
             isMute = true;
         } else {
             Toast toast = Toast.makeText(v.getContext(), "Unmute", Toast.LENGTH_SHORT);
             toast.show();
-            toggleMute.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_media_unmute, 0, 0, 0);
+            toggleMute.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_media_mute,
+                    0, 0, 0);
             isMute = false;
         }
     }
