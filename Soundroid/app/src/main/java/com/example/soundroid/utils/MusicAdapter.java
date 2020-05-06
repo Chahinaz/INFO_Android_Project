@@ -87,7 +87,7 @@ public class MusicAdapter extends RecyclerView.Adapter<MusicAdapter.ViewHolder> 
         private void update(Music music) {
             this.title.setText(music.getTitle());
             this.artistName.setText(music.getAuthor());
-            this.albumName.setText("Default Album :D");
+            this.albumName.setText("Unknown Album");
             this.albumArt.setImageBitmap(music.getThumbnail(itemView.getContext()));
         }
         @Override

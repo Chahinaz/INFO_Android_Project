@@ -1,7 +1,6 @@
 package com.example.soundroid.ui.player;
 
 import android.annotation.SuppressLint;
-import android.media.MediaMetadataRetriever;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
@@ -9,7 +8,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -31,23 +29,15 @@ import java.util.logging.Level;
 public class MusicPlayerFragment extends Fragment {
 
     private ImageView album_art;
+    private TextView title;
     private TextView album;
     private TextView artist;
-    private TextView genre;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         MusicPlayerViewModel musicPlayerViewModel = new ViewModelProvider(this).get(MusicPlayerViewModel.class);
 
         View root = inflater.inflate(R.layout.fragment_musicplayer, container, false);
-
-        final TextView textView = root.findViewById(R.id.text_music_player);
-        musicPlayerViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
-            @Override
-            public void onChanged(@Nullable String s) {
-                textView.setText(s);
-            }
-        });
 
         ((MainActivity) requireActivity()).mMusicViewModel.getMusicByName("Money Made")
                 .observe(getViewLifecycleOwner(), new Observer<Music>() {
@@ -64,10 +54,10 @@ public class MusicPlayerFragment extends Fragment {
             }
         });
 
-        album_art = root.findViewById(R.id.album_art);
-        album = root.findViewById(R.id.Album);
-        artist = root.findViewById(R.id.artist_name);
-        genre = root.findViewById(R.id.genre);
+        title = root.findViewById(R.id.title_player);
+        artist = root.findViewById(R.id.artist_name_player);
+        album = root.findViewById(R.id.album_name_player);
+        album_art = root.findViewById(R.id.album_art_player);
 
         return root;
     }
@@ -76,8 +66,9 @@ public class MusicPlayerFragment extends Fragment {
     @SuppressLint("SetTextI18n")
     private void displayMusic(Music music) {
         album_art.setImageBitmap(music.getThumbnail(getContext()));
+        title.setText(music.getTitle());
         artist.setText(music.getAuthor());
-        album.setText("default album");
+        album.setText("unknown album");
     }
 
 
