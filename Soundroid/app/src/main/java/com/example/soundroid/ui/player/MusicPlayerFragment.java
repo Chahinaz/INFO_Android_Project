@@ -1,5 +1,6 @@
 package com.example.soundroid.ui.player;
 
+import android.annotation.SuppressLint;
 import android.media.MediaMetadataRetriever;
 import android.os.Build;
 import android.os.Bundle;
@@ -29,21 +30,14 @@ import java.util.logging.Level;
  */
 public class MusicPlayerFragment extends Fragment {
 
-    private MusicPlayerViewModel musicPlayerViewModel;
-
     private ImageView album_art;
     private TextView album;
     private TextView artist;
     private TextView genre;
 
-    MediaMetadataRetriever metadataRetriever;
-    byte[] art;
-
-    private ListView songView;
-
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        musicPlayerViewModel = new ViewModelProvider(this).get(MusicPlayerViewModel.class);
+        MusicPlayerViewModel musicPlayerViewModel = new ViewModelProvider(this).get(MusicPlayerViewModel.class);
 
         View root = inflater.inflate(R.layout.fragment_musicplayer, container, false);
 
@@ -55,14 +49,15 @@ public class MusicPlayerFragment extends Fragment {
             }
         });
 
-        ((MainActivity) requireActivity()).mMusicViewModel.getMusicById(2)
+        ((MainActivity) requireActivity()).mMusicViewModel.getMusicByName("Money Made")
                 .observe(getViewLifecycleOwner(), new Observer<Music>() {
-            @RequiresApi(api = Build.VERSION_CODES.KITKAT)
+            @RequiresApi(api = Build.VERSION_CODES.Q)
             @Override
             public void onChanged(@Nullable final Music music) {
                 if(music == null) {
                     Log.d(String.valueOf(Level.INFO), "music not found");
                 } else {
+                    Log.d(String.valueOf(Level.INFO), "music <" + music.getTitle() +"> found");
                     displayMusic(music);
 
                 }
@@ -77,10 +72,10 @@ public class MusicPlayerFragment extends Fragment {
         return root;
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.Q)
+    @SuppressLint("SetTextI18n")
     private void displayMusic(Music music) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-            album_art.setImageBitmap(music.getThumbnail(getContext()));
-        }
+        album_art.setImageBitmap(music.getThumbnail(getContext()));
         artist.setText(music.getAuthor());
         album.setText("default album");
     }
