@@ -23,6 +23,14 @@ public class MusicViewModel extends AndroidViewModel {
 
     public LiveData<List<Music>> getAllMusic() { return mAllMusics; }
 
+    public LiveData<Music> getMusicByName(String name) {
+        return mRepository.getMusicByName(name);
+    }
+
+    public LiveData<Music> getMusicById(int id) {
+        return mRepository.getMusicById(id);
+    }
+
     public void insert(Music m) {
         mRepository.insert(m);
     }

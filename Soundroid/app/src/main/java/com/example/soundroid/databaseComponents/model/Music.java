@@ -4,7 +4,6 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.media.MediaMetadataRetriever;
-import android.net.Uri;
 import android.os.Build;
 import android.util.Size;
 
@@ -13,16 +12,14 @@ import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
-import java.io.IOException;
-
 @Entity(tableName = "music_table")
 public class Music {
 
     @PrimaryKey(autoGenerate = true)
     public int uid;
 
-    @ColumnInfo(name = "tittle")
-    public String Tittle;
+    @ColumnInfo(name = "title")
+    public String Title;
 
     @ColumnInfo(name = "author")
     public String Author;
@@ -59,16 +56,16 @@ public class Music {
         return Duration;
     }
 
-    public String getTittle() {
-        return Tittle;
+    public String getTitle() {
+        return Title;
     }
 
     public String getAuthor() {
         return Author;
     }
 
-    public void setTittle(String tittle) {
-        Tittle = tittle;
+    public void setTitle(String title) {
+        Title = title;
     }
 
     public void setAuthor(String author) {
@@ -95,7 +92,7 @@ public class Music {
     public String toString() {
         return "Music{" +
                 "uid=" + uid +
-                ", Tittle='" + Tittle + '\'' +
+                ", Title='" + Title + '\'' +
                 ", Author='" + Author + '\'' +
                 ", Img='" + Img + '\'' +
                 ", MusicPath='" + MusicPath + '\'' +

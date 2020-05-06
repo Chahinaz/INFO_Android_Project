@@ -41,4 +41,11 @@ public class MusicRepository {
         return ms;
     }
 
+    public LiveData<Music> getMusicByName(String name) {
+        return mMusicDao.getMusicByName(name);
+    }
+
+    public LiveData<Music> getMusicById(int id) {
+        return mMusicDao.getMusicByID(id);
+    }
 }

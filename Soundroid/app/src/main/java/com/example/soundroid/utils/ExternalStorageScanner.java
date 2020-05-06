@@ -42,9 +42,9 @@ public class ExternalStorageScanner {
                 if(!cursor.getString(cursor.getColumnIndex(MediaStore.Audio.Media.DATA)).contains("ogg")) { //manage here unwanted extension
                     Music m = new Music();
                     m.setAuthor(cursor.getString(1));
-                    m.setTittle(cursor.getString(2));
+                    m.setTitle(cursor.getString(2));
                     m.setDuration(cursor.getString(6));
-                    m.setHash(md5(m.Author+m.Tittle+m.MusicPath));
+                    m.setHash(md5(m.Author+m.Title+m.MusicPath));
                     m.setMusicPath(cursor.getString(cursor.getColumnIndex(MediaStore.Audio.Media.DATA)));
 
                     String cover = getAlbumUri(ctx,cursor.getString(0));

@@ -20,4 +20,9 @@ public interface MusicDao {
     @Query("DELETE FROM music_table")
     public void nukeTable();
 
+    @Query("SELECT * FROM music_table WHERE title = :name LIMIT 1")
+    LiveData<Music> getMusicByName(String name);
+
+    @Query("SELECT * FROM music_table WHERE uid = :id LIMIT 1")
+    LiveData<Music> getMusicByID(int id);
 }
