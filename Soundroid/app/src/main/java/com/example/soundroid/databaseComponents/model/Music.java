@@ -1,8 +1,19 @@
 package com.example.soundroid.databaseComponents.model;
 
+import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.media.MediaMetadataRetriever;
+import android.net.Uri;
+import android.os.Build;
+import android.util.Size;
+
+import androidx.annotation.RequiresApi;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
+
+import java.io.IOException;
 
 @Entity(tableName = "music_table")
 public class Music {
@@ -91,5 +102,17 @@ public class Music {
                 ", Duration='" + Duration + '\'' +
                 ", hash='" + hash + '\'' +
                 '}';
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.Q)
+    public Bitmap getThumbnail(Context ctx, Size sz)  {
+        /*Bitmap albumArt = ctx.getContentResolver().loadThumbnail(Uri.parse(MusicPath), sz, null);
+        return albumArt;*/
+
+        MediaMetadataRetriever mmr = new MediaMetadataRetriever();
+        mmr.setDataSource(MusicPath);
+        byte [] data = mmr.getEmbeddedPicture();
+        Bitmap bitmap = BitmapFactory.decodeByteArray(data, 0, data.length);
+        return bitmap;
     }
 }

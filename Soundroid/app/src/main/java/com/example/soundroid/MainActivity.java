@@ -9,11 +9,13 @@ import android.content.Intent;
 import android.content.ServiceConnection;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
+import android.graphics.Bitmap;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.provider.MediaStore;
 import android.util.Log;
+import android.util.Size;
 import android.view.View;
 import android.view.Menu;
 import android.widget.Button;
@@ -45,6 +47,8 @@ import androidx.navigation.ui.NavigationUI;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Consumer;
@@ -103,6 +107,7 @@ public class MainActivity extends AppCompatActivity {
 
         mMusicViewModel = new ViewModelProvider(this).get(MusicViewModel.class);
         mMusicViewModel.getAllMusic().observe(this, new Observer<List<Music>>() {
+            @RequiresApi(api = Build.VERSION_CODES.Q)
             @Override
             public void onChanged(@Nullable final List<Music> Music) {
                 displayMusicList(Music);
@@ -163,9 +168,13 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.Q)
     public void displayMusicList(List<Music> mlist) {
-        for(Music m : mlist)
+        for(Music m : mlist){
             Log.i("MUSIC",m.toString());
+            Bitmap b = m.getThumbnail(getApplicationContext(),new Size(100, 100));
+            b.getWidth();
+        }
     }
 
     @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
