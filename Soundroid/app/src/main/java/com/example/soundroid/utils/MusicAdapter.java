@@ -1,4 +1,4 @@
-package com.example.soundroid.musiclist;
+package com.example.soundroid.utils;
 
 import android.annotation.SuppressLint;
 import android.os.Build;
@@ -56,6 +56,10 @@ public class MusicAdapter extends RecyclerView.Adapter<MusicAdapter.ViewHolder> 
 
     public void setOnItemClickListener(ClickListener clickListener) {
         MusicAdapter.clickListener = clickListener;
+    }
+
+    public void SetList(List<Music> mlist){
+        musicList = mlist;
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {

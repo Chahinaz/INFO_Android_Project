@@ -1,27 +1,16 @@
 package com.example.soundroid.musiclist;
 
-import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import androidx.annotation.Nullable;
-import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProvider;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.soundroid.R;
-import com.example.soundroid.databaseComponents.model.Music;
 import com.example.soundroid.databaseComponents.providers.MusicViewModel;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.logging.Level;
+import com.example.soundroid.utils.MusicAdapter;
 
 /**
  * Created by cloud on 06/05/2020.
@@ -35,9 +24,9 @@ public class MusicListFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        final View root = inflater.inflate(R.layout.fragment_music_list, container, false);
+        final View root = inflater.inflate(R.layout.fragment_playlist, container, false);
 
-        mMusicViewModel = new ViewModelProvider(this).get(MusicViewModel.class);
+        /*mMusicViewModel = new ViewModelProvider(this).get(MusicViewModel.class);
         mMusicViewModel.getAllMusic().observe(this, new Observer<List<Music>>() {
             @RequiresApi(api = Build.VERSION_CODES.Q)
             @Override
@@ -61,7 +50,7 @@ public class MusicListFragment extends Fragment {
                 });
                 recyclerView.setAdapter(musicAdapter);
             }
-        });
+        });*/
 
         return root;
     }

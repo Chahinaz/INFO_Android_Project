@@ -109,6 +109,7 @@ public class Music {
 
     @RequiresApi(api = Build.VERSION_CODES.Q)
     public Bitmap getThumbnail(Context context)  {
+
         MediaMetadataRetriever mmr = new MediaMetadataRetriever();
         mmr.setDataSource(MusicPath);
         byte [] data = mmr.getEmbeddedPicture();

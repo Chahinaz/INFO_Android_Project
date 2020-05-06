@@ -30,18 +30,6 @@
     </fragment>
 
     <fragment
-        android:id="@+id/nav_gallery"
-        android:name="com.example.soundroid.ui.gallery.GalleryFragment"
-        android:label="@string/menu_gallery"
-        tools:layout="@layout/fragment_gallery" />
-
-    <fragment
-        android:id="@+id/nav_slideshow"
-        android:name="com.example.soundroid.ui.slideshow.SlideshowFragment"
-        android:label="@string/menu_slideshow"
-        tools:layout="@layout/fragment_slideshow" />
-
-    <fragment
         android:id="@+id/nav_playlist"
         android:name="com.example.soundroid.ui.playlist.MusicPlaylistFragment"
         android:label="@string/menu_playlist"
@@ -55,8 +43,8 @@
 
     <fragment
         android:id="@+id/nav_music_list"
-        android:name="com.example.soundroid.musiclist.MusicListFragment"
+        android:name="com.example.soundroid.ui.musicsearch.musicSearch"
         android:label="Music List"
-        tools:layout="@layout/fragment_music_list"
+        tools:layout="@layout/music_search_fragment"
         />
 </navigation>
