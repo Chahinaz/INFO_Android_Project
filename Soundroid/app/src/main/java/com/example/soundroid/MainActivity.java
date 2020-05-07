@@ -48,6 +48,7 @@ public class MainActivity extends AppCompatActivity {
     private boolean permission = false;
     public PlayerService mBoundService;
     public boolean mBound = false;
+    boolean ispaused = true;
     private ServiceConnection mConnection = new ServiceConnection() {
 
         @Override
@@ -72,14 +73,6 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         AccessMediaStorage(this,null);
         setSupportActionBar(toolbar);
-        FloatingActionButton fab = findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                /*Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();*/
-            }
-        });
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         NavigationView navigationView = findViewById(R.id.nav_view);
         // Passing each menu ID as a set of Ids because each
@@ -176,9 +169,20 @@ public class MainActivity extends AppCompatActivity {
 
     //====== Exposed funct for service ==============================//
 
-    public void AddSongWrap(Music m){
+    public void palyring(){
         if (mBound) {
+            ispaused = false;
             mBoundService.playRingTone();
+        }
+    }
+
+    public void togglePause(){
+        if(!ispaused){
+            mBoundService.pause();
+            ispaused = true;
+        }else{
+            mBoundService.unPause();
+            ispaused = false;
         }
     }
 }

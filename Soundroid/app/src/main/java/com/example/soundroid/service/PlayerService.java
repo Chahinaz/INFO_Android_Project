@@ -66,6 +66,14 @@ public class PlayerService extends Service {
         player.start();
     }
 
+    public void pause(){
+        player.pause();
+    }
+
+    public void unPause(){
+        player.start();
+    }
+
     private void setNext(){
         player.stop();
         player.reset();
