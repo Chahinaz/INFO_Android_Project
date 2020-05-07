@@ -95,7 +95,7 @@ public class MusicPlayerFragment extends Fragment {
     }
 
     private void setButtonListeners(View root) {
-        playButton = root.findViewById(R.id.toggle_play_button);
+        playButton = root.findViewById(R.id.play);
         playButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -130,6 +130,7 @@ public class MusicPlayerFragment extends Fragment {
 
     private void onPlayButtonClick(View v) {
         if(!isPlaying) {
+            ((MainActivity) getActivity()).palyring();
             Toast toast = Toast.makeText(v.getContext(), "Play music", Toast.LENGTH_SHORT);
             toast.show();
             playButton.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_media_pause,
@@ -141,6 +142,7 @@ public class MusicPlayerFragment extends Fragment {
             playButton.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_media_play,
                     0, 0, 0);
             isPlaying = false;
+            ((MainActivity) getActivity()).togglePause();
         }
     }
 
