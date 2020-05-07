@@ -18,6 +18,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.example.soundroid.MainActivity;
 import com.example.soundroid.R;
@@ -69,6 +70,8 @@ public class musicSearch extends Fragment {
                     @Override
                     public void onItemClick(View v, int position) {
                         Log.d(String.valueOf(Level.INFO), "Go to Player Fragment with song <" + musicList.get(position).getTitle() + ">");
+                        Toast toast = Toast.makeText(v.getContext(), "Go to Player Fragment with song <" + musicList.get(position).getTitle() + ">", Toast.LENGTH_SHORT);
+                        toast.show();
                     }
                 });
                 recyclerView.setAdapter(musicAdapter);
