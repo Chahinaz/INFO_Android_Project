@@ -24,6 +24,7 @@ public class PlayerService extends Service {
     private final IBinder mBinder = new LocalBinder();
     private BlockingQueue<Music> playing = new LinkedBlockingDeque<>();
     private boolean play = false;
+    private int position = 0;
 
     public class LocalBinder extends Binder {
         public PlayerService getService() {
@@ -67,11 +68,17 @@ public class PlayerService extends Service {
     }
 
     public void pause(){
-        player.pause();
+        if (player.isPlaying()) {
+            this.position = player.getCurrentPosition();
+            player.pause();
+        }
     }
 
     public void unPause(){
-        player.start();
+        if (!player.isPlaying()) {
+            player.seekTo(this.position);
+            player.start();
+        }
     }
 
     private void setNext(){

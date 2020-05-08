@@ -5,20 +5,32 @@
     android:id="@+id/activity_main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+<<<<<<< HEAD
     android:paddingBottom="@dimen/activity_vertical_margin"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context=".MainActivity">
+=======
+    android:background="#DCDCDC"
+    android:orientation="vertical"
+    tools:context=".ui.player.MusicPlayerFragment">
+
+>>>>>>> 585e226d7abab6ce198f8ae5b32f22780ea15403
 
     <ImageView
         android:id="@+id/album_art_player"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+<<<<<<< HEAD
         android:src="@mipmap/ic_launcher"
         app:layout_constraintBottom_toTopOf="@+id/linearLayout"
         app:layout_constraintTop_toTopOf="parent"
         tools:layout_editor_absoluteX="16dp" />
+=======
+        android:contentDescription="@string/default_album"
+        android:src="@mipmap/ic_launcher" />
+>>>>>>> 585e226d7abab6ce198f8ae5b32f22780ea15403
 
     <LinearLayout
         android:id="@+id/linearLayout"
@@ -141,4 +153,95 @@
                 android:drawableLeft="@android:drawable/ic_media_next" />
         </LinearLayout>
     </LinearLayout>
+<<<<<<< HEAD
 </androidx.constraintlayout.widget.ConstraintLayout>
+=======
+
+    <LinearLayout
+        android:id="@+id/player_time_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/played_time_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="right"
+            android:text="0:00" />
+
+        <ProgressBar
+            android:id="@+id/music_player_progressBar"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="7"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp" />
+
+        <TextView
+            android:id="@+id/song_duration_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="3:00" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/buttons_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/toggle_sound_button"
+            style="@style/Widget.AppCompat.Button.Borderless"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:drawableStart="@android:drawable/ic_lock_silent_mode"
+            android:drawableLeft="@android:drawable/ic_lock_silent_mode" />
+
+        <Button
+            android:id="@+id/previous_song_button"
+            style="@style/Widget.AppCompat.Button.Borderless"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+
+            android:drawableStart="@android:drawable/ic_media_previous"
+            android:drawableLeft="@android:drawable/ic_media_previous" />
+
+        <Button
+            android:id="@+id/toggle_play_button"
+            style="@style/Widget.AppCompat.Button.Borderless"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:drawableStart="@android:drawable/ic_media_play"
+            android:drawableLeft="@android:drawable/ic_media_play" />
+
+        <Button
+            android:id="@+id/next_song_button"
+            style="@style/Widget.AppCompat.Button.Borderless"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:drawableStart="@android:drawable/ic_media_next"
+            android:drawableLeft="@android:drawable/ic_media_next" />
+
+        <Button
+            android:id="@+id/shuffle_song_list_button"
+            style="@style/Widget.AppCompat.Button.Borderless"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:drawableStart="@android:drawable/stat_notify_sync"
+            android:drawableLeft="@android:drawable/stat_notify_sync"
+            android:shadowColor="#000000" />
+    </LinearLayout>
+
+</LinearLayout>
+>>>>>>> 585e226d7abab6ce198f8ae5b32f22780ea15403
