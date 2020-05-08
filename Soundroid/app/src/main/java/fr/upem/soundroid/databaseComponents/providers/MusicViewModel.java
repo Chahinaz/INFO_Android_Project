@@ -5,9 +5,9 @@ import android.app.Application;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 
-import fr.upem.soundroid.databaseComponents.model.Music;
-
 import java.util.List;
+
+import fr.upem.soundroid.databaseComponents.model.Music;
 
 public class MusicViewModel extends AndroidViewModel {
 
@@ -43,5 +43,9 @@ public class MusicViewModel extends AndroidViewModel {
         for(Music m : mlist){
             insert(m);
         }
+    }
+
+    public LiveData<List<Music>> getMusicLikeName(String name){
+        return mRepository.getMusicLikeName(name);
     }
 }

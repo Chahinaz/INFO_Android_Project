@@ -14,15 +14,15 @@ import androidx.annotation.RequiresApi;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.soundroid.R;
-import fr.upem.soundroid.databaseComponents.model.Music;
 
 import java.util.List;
+
+import fr.upem.soundroid.databaseComponents.model.Music;
 
 /**
  * Created by cloud on 06/05/2020.
  */
 public class MusicAdapter extends RecyclerView.Adapter<MusicAdapter.ViewHolder> {
-
     private static ClickListener clickListener;
     private List<Music> musicList;
 

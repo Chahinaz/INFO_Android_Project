@@ -3,11 +3,11 @@ import android.app.Application;
 
 import androidx.lifecycle.LiveData;
 
+import java.util.List;
+
 import fr.upem.soundroid.databaseComponents.model.Music;
 import fr.upem.soundroid.databaseComponents.model.MusicDao;
 import fr.upem.soundroid.databaseComponents.model.MusicDatabase;
-
-import java.util.List;
 
 public class MusicRepository {
 
@@ -47,5 +47,10 @@ public class MusicRepository {
 
     public LiveData<Music> getMusicById(int id) {
         return mMusicDao.getMusicByID(id);
+    }
+
+    public LiveData<List<Music>> getMusicLikeName(String name){
+        LiveData<List<Music>> ms = mMusicDao.getMusicLikeName(name);
+        return ms;
     }
 }

@@ -23,6 +23,9 @@ public interface MusicDao {
     @Query("SELECT * FROM music_table WHERE title = :name LIMIT 1")
     LiveData<Music> getMusicByName(String name);
 
+    @Query("SELECT * FROM music_table WHERE title LIKE '%' || :name  || '%' ")
+    LiveData<List<Music>> getMusicLikeName(String name);
+
     @Query("SELECT * FROM music_table WHERE uid = :id LIMIT 1")
     LiveData<Music> getMusicByID(int id);
 }
