@@ -152,7 +152,7 @@ public class MusicPlayerFragment extends Fragment {
 
     private void onPlayButtonClick(View v) {
         if(!isPlaying) {
-            ((MainActivity) getActivity()).palyring();
+            ((MainActivity) getActivity()).togglePause();
             playingTime = pauseTime;
             startPlayTime();
             Toast toast = Toast.makeText(v.getContext(), "Play music", Toast.LENGTH_SHORT);
