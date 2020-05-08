@@ -113,7 +113,7 @@ public class MusicPlayerFragment extends Fragment {
     }
 
     private void setButtonListeners(View root) {
-        playButton = root.findViewById(R.id.play);
+        playButton = root.findViewById(R.id.toggle_play_button);
         playButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
