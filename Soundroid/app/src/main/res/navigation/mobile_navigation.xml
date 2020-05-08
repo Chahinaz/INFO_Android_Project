@@ -7,19 +7,19 @@
 
     <fragment
         android:id="@+id/nav_playlist"
-        android:name="com.example.soundroid.ui.playlist.MusicPlaylistFragment"
+        android:name="fr.upem.soundroid.ui.playlist.MusicPlaylistFragment"
         android:label="@string/menu_playlist"
         tools:layout="@layout/fragment_playlist" />
 
     <fragment
         android:id="@+id/nav_music_player"
-        android:name="com.example.soundroid.ui.player.MusicPlayerFragment"
+        android:name="fr.upem.soundroid.ui.player.MusicPlayerFragment"
         android:label="@string/menu_music_player"
         tools:layout="@layout/fragment_musicplayer" />
 
     <fragment
         android:id="@+id/nav_music_list"
-        android:name="com.example.soundroid.ui.musicsearch.musicSearch"
+        android:name="fr.upem.soundroid.ui.musicsearch.musicSearch"
         android:label="Music List"
         tools:layout="@layout/music_search_fragment"
         />

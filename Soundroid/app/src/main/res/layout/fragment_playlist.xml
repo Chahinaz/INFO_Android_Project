@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.playlist.MusicPlaylistFragment" >
+    tools:context="fr.upem.soundroid.ui.playlist.MusicPlaylistFragment" >
 
     <TextView
         android:id="@+id/name_music_playlist"
