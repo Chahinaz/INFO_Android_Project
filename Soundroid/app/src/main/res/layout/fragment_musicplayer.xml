@@ -14,16 +14,13 @@
     android:orientation="vertical">
 
 
-
     <ImageView
         android:id="@+id/album_art_player"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toTopOf="@+id/linearLayout"
         app:layout_constraintTop_toTopOf="parent"
-        tools:layout_editor_absoluteX="16dp"
-        android:contentDescription="@string/default_album"
-        android:src="@mipmap/ic_launcher" />
+        tools:layout_editor_absoluteX="16dp" />
 
 
     <LinearLayout
@@ -159,7 +156,9 @@
             android:drawableStart="@android:drawable/stat_notify_sync"
             android:drawableLeft="@android:drawable/stat_notify_sync"
             android:shadowColor="#000000" />
+
     </LinearLayout>
+
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
 
