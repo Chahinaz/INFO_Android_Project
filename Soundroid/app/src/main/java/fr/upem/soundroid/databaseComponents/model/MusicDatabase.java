@@ -9,10 +9,11 @@ import androidx.room.RoomDatabase;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-@Database(entities = {Music.class}, version = 1)
+@Database(entities = {Music.class,PlayList.class}, version = 1)
 public abstract class MusicDatabase extends RoomDatabase {
 
   public abstract MusicDao MusicDao();
+  public abstract PlayListDao PlayListDao();
 
   private static volatile MusicDatabase INSTANCE;
   private static final int NUMBER_OF_THREADS = 4;

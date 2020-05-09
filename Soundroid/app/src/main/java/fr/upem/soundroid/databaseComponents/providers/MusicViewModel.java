@@ -13,15 +13,12 @@ public class MusicViewModel extends AndroidViewModel {
 
     private MusicRepository mRepository;
 
-    private LiveData<List<Music>> mAllMusics;
-
     public MusicViewModel (Application application) {
         super(application);
         mRepository = new MusicRepository(application);
-        mAllMusics = mRepository.getAllMusic();
     }
 
-    public LiveData<List<Music>> getAllMusic() { return mAllMusics; }
+    public LiveData<List<Music>> getAllMusic() { return mRepository.getAllMusic(); }
 
     public LiveData<Music> getMusicByName(String name) {
         return mRepository.getMusicByName(name);
