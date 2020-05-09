@@ -19,9 +19,10 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/my_recycler_view_for_music_search_frag"
         android:layout_width="match_parent"
-        android:layout_height="312dp"
+        android:layout_height="wrap_content"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        app:layout_constraintTop_toBottomOf="@+id/searchView"
-        tools:layout_editor_absoluteX="0dp" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/searchView" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
