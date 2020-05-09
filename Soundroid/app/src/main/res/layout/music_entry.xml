@@ -1,48 +1,54 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/item_wrapper"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:padding="5dp">
+    android:layout_height="118dp">
 
-    <ImageView
-        android:id="@+id/album_art_list_entry"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:maxHeight="64dp"
-        android:maxWidth="64dp"
-        android:scaleType="fitCenter"
-        android:adjustViewBounds="true"
-        android:contentDescription="@string/default_image"
-        app:srcCompat="@mipmap/ic_launcher"
-        />
-
-    <LinearLayout
+    <LinearLayout xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/item_wrapper"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:padding="5dp">
+        android:layout_height="wrap_content"
+        android:padding="5dp"
+        android:scrollbars="horizontal">
 
-        <TextView
-            android:id="@+id/name_view_list_entry"
+        <ImageView
+            android:id="@+id/album_art_list_entry"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/default_name"
-            android:textStyle="bold"/>
+            android:maxHeight="64dp"
+            android:minHeight="64dp"
+            android:maxWidth="64dp"
+            android:minWidth="64dp"
+            android:scaleType="fitCenter"
+            android:adjustViewBounds="true"
+            android:contentDescription="@string/default_image"
+            app:srcCompat="@mipmap/ic_launcher"
+            />
 
-        <TextView
-            android:id="@+id/artist_view_list_entry"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/default_artist" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="82dp"
+            android:orientation="vertical"
+            android:padding="5dp">
 
-        <TextView
-            android:id="@+id/album_view_list_entry"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/default_album" />
+            <TextView
+                android:id="@+id/name_view_list_entry"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/default_name"
+                android:textStyle="bold" />
 
+            <TextView
+                android:id="@+id/artist_view_list_entry"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/default_artist" />
+
+            <TextView
+                android:id="@+id/album_view_list_entry"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/default_album" />
+
+        </LinearLayout>
     </LinearLayout>
-
-</LinearLayout>
+</ScrollView>

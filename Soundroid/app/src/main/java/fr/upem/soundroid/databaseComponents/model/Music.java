@@ -123,7 +123,7 @@ public class Music {
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     private Bitmap getDefaultThumbnail(Context context) {
         if (cachedDefaultBitmap == null) {
-            try (InputStream inputStream = context.getAssets().open("pikawhat.png")) {
+            try (InputStream inputStream = context.getAssets().open("Circle-icons-music.svg")) {
                 cachedDefaultBitmap = BitmapFactory.decodeStream(inputStream);
             } catch (IOException e) {
                 Log.e(String.valueOf(Log.ERROR), "IO exception while opening inputStream");
