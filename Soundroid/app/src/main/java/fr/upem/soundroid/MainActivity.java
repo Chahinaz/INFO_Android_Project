@@ -85,16 +85,7 @@ public class MainActivity extends AppCompatActivity {
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
 
-
         mMusicViewModel = new ViewModelProvider(this).get(MusicViewModel.class);
-        mMusicViewModel.getAllMusic().observe(this, new Observer<List<Music>>() {
-            @RequiresApi(api = Build.VERSION_CODES.Q)
-            @Override
-            public void onChanged(@Nullable final List<Music> musicList) {
-                assert musicList != null;
-                displayMusicList(musicList);
-            }
-        });
 
         while(!permission){
             if(ContextCompat.checkSelfPermission(getApplicationContext(),Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED){
@@ -169,13 +160,6 @@ public class MainActivity extends AppCompatActivity {
 
     //====== Exposed funct for service ==============================//
 
-    public void palyring(){
-        if (mBound) {
-            ispaused = false;
-            mBoundService.playRingTone();
-        }
-    }
-
     public void togglePause(){
         if(!ispaused){
             mBoundService.pause();
@@ -184,5 +168,24 @@ public class MainActivity extends AppCompatActivity {
             mBoundService.unPause();
             ispaused = false;
         }
+    }
+
+    public void AddSongNow(Music m){
+        if (mBound) {
+            mBoundService.addSongNow(m);
+        }
+    }
+
+    public void AddSongForLater(Music m){
+        if (mBound) {
+            mBoundService.addSongNext(m);
+        }
+    }
+
+    public Music currentlyPlayed(){
+        if (mBound) {
+            return mBoundService.currentlyPlayed();
+        }
+        return null;
     }
 }

@@ -7,32 +7,27 @@
     android:layout_height="match_parent"
     tools:context="fr.upem.soundroid.ui.playlist.MusicPlaylistFragment" >
 
-    <TextView
-        android:id="@+id/name_music_playlist"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/my_recycler_view_for_playlist_frag"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="107dp"
-        android:layout_marginBottom="597dp"
-        android:gravity="center_horizontal"
-        android:text="@string/menu_playlist"
-        android:textAlignment="center"
-        android:textSize="20sp"
+        android:layout_height="match_parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <ImageView
-        android:id="@+id/cover"
-        android:layout_width="410dp"
-        android:layout_height="199dp"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="398dp"
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end|bottom"
+        android:layout_margin="16dp"
+        android:layout_marginEnd="40dp"
+        android:layout_marginRight="40dp"
+        android:layout_marginBottom="40dp"
+        android:contentDescription="add a new playlist"
+        android:src="@drawable/ic_audiotrack_black_24dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.149"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/name_music_playlist"/>
+        app:layout_constraintEnd_toEndOf="parent" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

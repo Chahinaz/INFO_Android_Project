@@ -3,6 +3,7 @@ package fr.upem.soundroid.service;
 import android.app.Service;
 import android.content.Intent;
 import android.media.MediaPlayer;
+import android.net.Uri;
 import android.os.Binder;
 import android.os.IBinder;
 import android.provider.Settings;
@@ -14,6 +15,7 @@ import fr.upem.soundroid.databaseComponents.model.Music;
 import java.io.IOException;
 import java.util.Collections;
 import java.util.List;
+import java.util.Stack;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingDeque;
 
@@ -21,6 +23,7 @@ public class PlayerService extends Service {
     private MediaPlayer player = new MediaPlayer();
     private final IBinder mBinder = new LocalBinder();
     private BlockingQueue<Music> playing = new LinkedBlockingDeque<>();
+    private Stack<Music> last5 = new Stack<>();
     private boolean play = false;
     private int position = 0;
 
@@ -96,11 +99,24 @@ public class PlayerService extends Service {
                     mp.start();
                 }
             });
+            last5.add(m);
         }
     }
 
-    public void addSong(Music m){
-        playing.add(m) ;
+    public void addSongNow(Music m){
+        player.stop();
+        player.release();
+        player = MediaPlayer.create(getApplicationContext(), Uri.parse(m.getMusicPath()));
+        last5.add(m);
+        player.start();
+    }
+
+    public void addSongNext(Music m){
+        try {
+            playing.put(m);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 
     public void setPlaylist(List<Music> mlist, boolean isShuffled){
@@ -108,6 +124,10 @@ public class PlayerService extends Service {
         playing = new LinkedBlockingDeque<>();
         playing.addAll(mlist);
         setNext();
+    }
+
+    public Music currentlyPlayed(){
+        return last5.peek();
     }
 
 }

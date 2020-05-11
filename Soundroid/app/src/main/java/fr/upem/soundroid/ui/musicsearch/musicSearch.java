@@ -23,6 +23,7 @@ import com.example.soundroid.R;
 import java.util.ArrayList;
 import java.util.List;
 
+import fr.upem.soundroid.MainActivity;
 import fr.upem.soundroid.databaseComponents.model.Music;
 import fr.upem.soundroid.databaseComponents.providers.MusicViewModel;
 import fr.upem.soundroid.utils.MusicAdapter;
@@ -48,13 +49,11 @@ public class musicSearch extends Fragment {
     }
 
     public void initRecycle(final Context ctx){
-        mA = new MusicAdapter(new ArrayList<Music>());
+        mA = new MusicAdapter(new ArrayList<Music>(),getActivity());
         mA.setOnItemClickListener(new MusicAdapter.ClickListener() {
             @Override
             public void onItemClick(View v, int position) {
-                /*Log.d(String.valueOf(Level.INFO), "Go to Player Fragment with song <" + musicList.get(position).getTitle() + ">");
-                Toast toast = Toast.makeText(v.getContext(), "Go to Player Fragment with song <" + musicList.get(position).getTitle() + ">", Toast.LENGTH_SHORT);
-                toast.show();*/
+                ((MainActivity) getActivity()).AddSongNow(mA.getMusicAtPos(position));
             }
         });
         recyclerView.setLayoutManager(new LinearLayoutManager(ctx));

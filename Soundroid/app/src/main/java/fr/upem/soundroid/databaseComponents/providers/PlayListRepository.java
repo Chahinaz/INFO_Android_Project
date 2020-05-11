@@ -16,7 +16,7 @@ public class PlayListRepository {
 
     public PlayListRepository(Application application) {
         MusicDatabase db = MusicDatabase.getDatabase(application);
-        db.PlayListDao();
+        pldao = db.PlayListDao();
     }
 
     void insert(final PlayList pl) {

@@ -13,28 +13,58 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.soundroid.R;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.snackbar.Snackbar;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import fr.upem.soundroid.databaseComponents.model.Music;
+import fr.upem.soundroid.databaseComponents.model.PlayList;
+import fr.upem.soundroid.databaseComponents.providers.MusicViewModel;
+import fr.upem.soundroid.databaseComponents.providers.PlayListViewModel;
+import fr.upem.soundroid.utils.PlayListAdapter;
 
 public class MusicPlaylistFragment extends Fragment {
 
     private MusicPlaylistViewModel musicPlaylistViewModel;
     private ImageView cover;
     private ListView songsView;
+    private RecyclerView recyclerView;
+    private PlayListAdapter plad;
+    private PlayListViewModel plvm;
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         musicPlaylistViewModel = new ViewModelProvider(this).get(MusicPlaylistViewModel.class);
         View root = inflater.inflate(R.layout.fragment_playlist, container, false);
+        plvm = new ViewModelProvider(this).get(PlayListViewModel.class);
+        plad = new PlayListAdapter(new ArrayList<String>(),getActivity(),false);
 
-        final TextView textView = root.findViewById(R.id.name_music_playlist);
-        musicPlaylistViewModel.getName().observe(getViewLifecycleOwner(), new Observer<String>() {
+        recyclerView = root.findViewById(R.id.my_recycler_view_for_playlist_frag);
+        recyclerView.setLayoutManager(new LinearLayoutManager(requireActivity()));
+        recyclerView.setAdapter(plad);
+        plvm.getAllplaylist().observe(getViewLifecycleOwner(), new Observer<List<String>>() {
             @Override
-            public void onChanged(@Nullable String s) {
-                textView.setText(s);
+            public void onChanged(List<String> playLists) {
+                plad.setList(playLists);
+                plad.notifyDataSetChanged();
             }
         });
 
-        cover = root.findViewById(R.id.cover);
+        FloatingActionButton fab = root.findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                DialogCreatePlaylist dcpl = new DialogCreatePlaylist();
+                dcpl.show(getActivity().getSupportFragmentManager(),"");
+            }
+        });
+
+
         return root;
     }
 

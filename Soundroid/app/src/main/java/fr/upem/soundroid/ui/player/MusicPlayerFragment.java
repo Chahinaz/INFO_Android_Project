@@ -73,7 +73,7 @@ public class MusicPlayerFragment extends Fragment {
                 }
                 Log.d(String.valueOf(Level.INFO), "music <" + music.getTitle() +"> found");
                 displayMusic(music);
-                setProgressBar(root, music);
+                //setProgressBar(root, music);
             }
         });
 
@@ -84,7 +84,7 @@ public class MusicPlayerFragment extends Fragment {
         duration = root.findViewById(R.id.song_duration_text);
 
         playTime = root.findViewById(R.id.played_time_text);
-        timeHandler = new Handler();
+        //timeHandler = new Handler();
 
         setButtonListeners(root);
 
@@ -154,7 +154,7 @@ public class MusicPlayerFragment extends Fragment {
         if(!isPlaying) {
             ((MainActivity) getActivity()).togglePause();
             playingTime = pauseTime;
-            startPlayTime();
+            //startPlayTime();
             Toast toast = Toast.makeText(v.getContext(), "Play music", Toast.LENGTH_SHORT);
             toast.show();
             playButton.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_media_pause,
@@ -231,7 +231,7 @@ public class MusicPlayerFragment extends Fragment {
     }
 
     private void startPlayTime() {
-        playingSongTime.run();
+        //playingSongTime.run();
     }
 
     @Override
