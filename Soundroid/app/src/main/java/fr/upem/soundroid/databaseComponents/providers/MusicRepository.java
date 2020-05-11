@@ -53,4 +53,8 @@ public class MusicRepository {
         LiveData<List<Music>> ms = mMusicDao.getMusicLikeName(name);
         return ms;
     }
+
+    public LiveData<List<Music>> getallMusicHashForPlayList(String name){
+        return mMusicDao.getAllMusicHashForPlaylist(name);
+    }
 }

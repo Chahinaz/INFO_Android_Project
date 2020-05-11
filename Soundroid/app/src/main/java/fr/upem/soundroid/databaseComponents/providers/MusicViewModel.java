@@ -45,4 +45,8 @@ public class MusicViewModel extends AndroidViewModel {
     public LiveData<List<Music>> getMusicLikeName(String name){
         return mRepository.getMusicLikeName(name);
     }
+
+    public LiveData<List<Music>> getAllMusicForPlaylist(String name){
+        return mRepository.getallMusicHashForPlayList(name);
+    }
 }

@@ -7,6 +7,7 @@ import androidx.lifecycle.LiveData;
 
 import java.util.List;
 
+import fr.upem.soundroid.databaseComponents.model.Music;
 import fr.upem.soundroid.databaseComponents.model.PlayList;
 
 public class PlayListViewModel extends AndroidViewModel {
@@ -27,5 +28,7 @@ public class PlayListViewModel extends AndroidViewModel {
     public void insert(PlayList pl) {
         plRepository.insert(pl);
     }
+
+
 
 }

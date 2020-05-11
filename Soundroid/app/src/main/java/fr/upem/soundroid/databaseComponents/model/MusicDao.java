@@ -28,4 +28,7 @@ public interface MusicDao {
 
     @Query("SELECT * FROM music_table WHERE uid = :id LIMIT 1")
     LiveData<Music> getMusicByID(int id);
+
+    @Query("SELECT * FROM music_table WHERE Hash IN (SELECT music_hash FROM playlist_table WHERE title = :name)")
+    LiveData<List<Music>> getAllMusicHashForPlaylist(String name);
 }

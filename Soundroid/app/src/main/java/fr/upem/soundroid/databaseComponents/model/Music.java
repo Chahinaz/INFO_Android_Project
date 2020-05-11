@@ -7,6 +7,7 @@ import android.media.MediaMetadataRetriever;
 import android.os.Build;
 import android.util.Log;
 
+import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
@@ -130,5 +131,19 @@ public class Music {
             }
         }
         return cachedDefaultBitmap;
+    }
+
+    @Override
+    public int hashCode() {
+        return super.hashCode();
+    }
+
+    @Override
+    public boolean equals(@Nullable Object obj) {
+        if(!(obj instanceof Music)) return false;
+        Music tmp = (Music) obj;
+        if(this.hash != tmp.hash) return false;
+        return true;
+
     }
 }
