@@ -15,7 +15,10 @@ import com.example.soundroid.R;
 
 import java.util.List;
 
+import fr.upem.soundroid.databaseComponents.model.Music;
+
 public class PlayListAdapter extends RecyclerView.Adapter<PlayListAdapter.ViewHolder> {
+
 
     public interface ClickListener {
         void onItemClick(View v, int position);
@@ -25,6 +28,7 @@ public class PlayListAdapter extends RecyclerView.Adapter<PlayListAdapter.ViewHo
     private List<String> playListList;
     private FragmentActivity ctx;
     private final boolean isForDialog;
+    private Music dialogMusic;
 
     public PlayListAdapter(List<String> musicList, FragmentActivity ctx, boolean isForDialog) {
         super();
@@ -33,8 +37,20 @@ public class PlayListAdapter extends RecyclerView.Adapter<PlayListAdapter.ViewHo
         this.isForDialog = isForDialog;
     }
 
+    public PlayListAdapter(List<String> musicList, FragmentActivity ctx, boolean isForDialog,Music m) {
+        super();
+        this.playListList = musicList;
+        this.ctx = ctx;
+        this.isForDialog = isForDialog;
+        this.dialogMusic = m;
+    }
+
     public void setList(List<String> newList){
         this.playListList = newList;
+    }
+
+    public String getItem(int position) {
+        return this.playListList.get(position);
     }
 
     @NonNull

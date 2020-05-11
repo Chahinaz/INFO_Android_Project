@@ -54,7 +54,7 @@ public class MusicAdapter extends RecyclerView.Adapter<MusicAdapter.ViewHolder> 
 
     @RequiresApi(api = Build.VERSION_CODES.Q)
     @Override
-    public void onBindViewHolder(@NonNull final ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull final ViewHolder holder, final int position) {
         holder.update(musicList.get(position));
         final Context ctx = holder.threeDot.getContext();
 
@@ -79,7 +79,7 @@ public class MusicAdapter extends RecyclerView.Adapter<MusicAdapter.ViewHolder> 
                             // add song to a playlist
 
                             case R.id.menu2:
-                                startFrag();
+                                startFrag(musicList.get(position));
                                 return true;
                             //expose to url
                             case R.id.menu3:
@@ -117,12 +117,12 @@ public class MusicAdapter extends RecyclerView.Adapter<MusicAdapter.ViewHolder> 
         return musicList.get(i);
     }
 
-    private void startFrag(){
+    private void startFrag(final Music music){
         PlayListViewModel plvm = new ViewModelProvider(ctx).get(PlayListViewModel.class);
         plvm.getAllplaylist().observe(ctx, new Observer<List<String>>() {
             @Override
             public void onChanged(List<String> strings) {
-                DialogPlaylist dpl = new DialogPlaylist(strings);
+                DialogPlaylist dpl = new DialogPlaylist(strings,music);
                 dpl.show(ctx.getSupportFragmentManager(),"");
             }
         });

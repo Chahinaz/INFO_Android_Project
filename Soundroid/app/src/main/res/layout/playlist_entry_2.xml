@@ -1,19 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:gravity="center_vertical"
-    android:id="@+id/playlistWrapper"
-    >
+    android:layout_height="wrap_content">
 
-    <TextView
-        android:id="@+id/name_view_playlist_entry"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/default_name"
-        android:textStyle="bold" />
+        android:paddingTop="10dp"
+        android:gravity="center_vertical"
+        android:id="@+id/playlistWrapper"
+        >
+
+        <TextView
+            android:id="@+id/name_view_playlist_entry"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:text="@string/default_name"
+            android:textStyle="bold" />
 
 
-</LinearLayout>
+        </LinearLayout>
+    </ScrollView>
