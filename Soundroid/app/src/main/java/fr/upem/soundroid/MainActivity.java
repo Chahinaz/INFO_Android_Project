@@ -158,6 +158,18 @@ public class MainActivity extends AppCompatActivity {
         mMusicViewModel.insertAll(ExternalStorageScanner.resolve(this.getApplicationContext()));
     }
 
+    @Override
+    public void onBackPressed() {
+        int count = getSupportFragmentManager().getBackStackEntryCount();
+        if (count == 0) {
+            super.onBackPressed();
+            //additional code
+        } else {
+            getSupportFragmentManager().popBackStack();
+        }
+
+    }
+
     //====== Exposed funct for service ==============================//
 
     public void togglePause(){
