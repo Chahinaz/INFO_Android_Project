@@ -2,7 +2,6 @@ package fr.upem.soundroid.utils;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.os.Build;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -14,9 +13,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.PopupMenu;
-import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
@@ -26,8 +23,8 @@ import com.example.soundroid.R;
 
 import java.util.List;
 
-import fr.upem.soundroid.databaseComponents.model.Music;
-import fr.upem.soundroid.databaseComponents.providers.PlayListViewModel;
+import fr.upem.soundroid.databaseComponents.model.music.Music;
+import fr.upem.soundroid.databaseComponents.providers.playlist.PlayListViewModel;
 import fr.upem.soundroid.ui.playlist.DialogPlaylist;
 
 /**

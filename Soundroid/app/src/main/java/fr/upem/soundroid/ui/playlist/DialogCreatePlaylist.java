@@ -10,10 +10,8 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.DialogFragment;
 import androidx.lifecycle.ViewModelProvider;
 
-import java.util.Objects;
-
-import fr.upem.soundroid.databaseComponents.model.PlayList;
-import fr.upem.soundroid.databaseComponents.providers.PlayListViewModel;
+import fr.upem.soundroid.databaseComponents.model.playlist.PlayList;
+import fr.upem.soundroid.databaseComponents.providers.playlist.PlayListViewModel;
 
 public class DialogCreatePlaylist extends DialogFragment {
     private PlayListViewModel plvm;

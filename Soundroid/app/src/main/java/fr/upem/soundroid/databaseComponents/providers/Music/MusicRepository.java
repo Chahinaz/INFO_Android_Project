@@ -1,12 +1,12 @@
-package fr.upem.soundroid.databaseComponents.providers;
+package fr.upem.soundroid.databaseComponents.providers.Music;
 import android.app.Application;
 
 import androidx.lifecycle.LiveData;
 
 import java.util.List;
 
-import fr.upem.soundroid.databaseComponents.model.Music;
-import fr.upem.soundroid.databaseComponents.model.MusicDao;
+import fr.upem.soundroid.databaseComponents.model.music.Music;
+import fr.upem.soundroid.databaseComponents.model.music.MusicDao;
 import fr.upem.soundroid.databaseComponents.model.MusicDatabase;
 
 public class MusicRepository {

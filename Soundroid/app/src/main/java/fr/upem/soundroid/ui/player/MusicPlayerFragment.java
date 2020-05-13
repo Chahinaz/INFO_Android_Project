@@ -22,7 +22,7 @@ import androidx.lifecycle.ViewModelProvider;
 
 import fr.upem.soundroid.MainActivity;
 import com.example.soundroid.R;
-import fr.upem.soundroid.databaseComponents.model.Music;
+import fr.upem.soundroid.databaseComponents.model.music.Music;
 
 import android.os.Handler;
 import java.util.logging.Level;

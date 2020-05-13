@@ -4,13 +4,10 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.ListView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -22,10 +19,9 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import java.util.ArrayList;
 import java.util.List;
 
-import fr.upem.soundroid.databaseComponents.providers.PlayListViewModel;
+import fr.upem.soundroid.databaseComponents.providers.playlist.PlayListViewModel;
 import fr.upem.soundroid.ui.playlist.DialogCreatePlaylist;
 import fr.upem.soundroid.ui.playlist.MusicPlaylistFragment;
-import fr.upem.soundroid.ui.playlist.playListContentDisplay.PlayListContentDisplay;
 import fr.upem.soundroid.utils.PlayListAdapter;
 
 public class PlayListDisplay extends Fragment {

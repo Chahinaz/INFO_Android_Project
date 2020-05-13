@@ -18,8 +18,8 @@ import com.example.soundroid.R;
 import java.util.ArrayList;
 import java.util.List;
 
-import fr.upem.soundroid.databaseComponents.model.Music;
-import fr.upem.soundroid.databaseComponents.providers.MusicViewModel;
+import fr.upem.soundroid.databaseComponents.model.music.Music;
+import fr.upem.soundroid.databaseComponents.providers.Music.MusicViewModel;
 import fr.upem.soundroid.utils.MusicAdapter;
 
 public class PlayListContentDisplay extends Fragment {

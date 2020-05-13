@@ -15,7 +15,7 @@ import com.example.soundroid.R;
 
 import java.util.List;
 
-import fr.upem.soundroid.databaseComponents.model.Music;
+import fr.upem.soundroid.databaseComponents.model.music.Music;
 
 public class PlayListAdapter extends RecyclerView.Adapter<PlayListAdapter.ViewHolder> {
 

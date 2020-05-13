@@ -15,8 +15,8 @@ import android.view.View;
 import android.view.Menu;
 import android.widget.Toast;
 
-import fr.upem.soundroid.databaseComponents.model.Music;
-import fr.upem.soundroid.databaseComponents.providers.MusicViewModel;
+import fr.upem.soundroid.databaseComponents.model.music.Music;
+import fr.upem.soundroid.databaseComponents.providers.Music.MusicViewModel;
 
 import fr.upem.soundroid.service.PlayerService;
 import fr.upem.soundroid.utils.ExternalStorageScanner;
@@ -25,11 +25,9 @@ import com.example.soundroid.R;
 import com.google.android.material.navigation.NavigationView;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;

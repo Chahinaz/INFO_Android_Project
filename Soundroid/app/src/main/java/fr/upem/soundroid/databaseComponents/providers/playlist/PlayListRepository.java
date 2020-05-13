@@ -1,4 +1,4 @@
-package fr.upem.soundroid.databaseComponents.providers;
+package fr.upem.soundroid.databaseComponents.providers.playlist;
 
 import android.app.Application;
 
@@ -6,10 +6,9 @@ import androidx.lifecycle.LiveData;
 
 import java.util.List;
 
-import fr.upem.soundroid.databaseComponents.model.Music;
 import fr.upem.soundroid.databaseComponents.model.MusicDatabase;
-import fr.upem.soundroid.databaseComponents.model.PlayListDao;
-import fr.upem.soundroid.databaseComponents.model.PlayList;
+import fr.upem.soundroid.databaseComponents.model.playlist.PlayListDao;
+import fr.upem.soundroid.databaseComponents.model.playlist.PlayList;
 
 public class PlayListRepository {
     private PlayListDao pldao;

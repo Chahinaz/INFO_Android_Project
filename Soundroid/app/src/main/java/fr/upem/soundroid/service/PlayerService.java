@@ -10,7 +10,7 @@ import android.provider.Settings;
 
 import androidx.annotation.Nullable;
 
-import fr.upem.soundroid.databaseComponents.model.Music;
+import fr.upem.soundroid.databaseComponents.model.music.Music;
 
 import java.io.IOException;
 import java.util.Collections;

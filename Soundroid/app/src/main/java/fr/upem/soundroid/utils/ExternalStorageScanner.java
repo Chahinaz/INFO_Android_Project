@@ -5,7 +5,7 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.provider.MediaStore;
 
-import fr.upem.soundroid.databaseComponents.model.Music;
+import fr.upem.soundroid.databaseComponents.model.music.Music;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;

@@ -1,4 +1,4 @@
-package fr.upem.soundroid.databaseComponents.providers;
+package fr.upem.soundroid.databaseComponents.providers.playlist;
 
 import android.app.Application;
 
@@ -7,16 +7,14 @@ import androidx.lifecycle.LiveData;
 
 import java.util.List;
 
-import fr.upem.soundroid.databaseComponents.model.Music;
-import fr.upem.soundroid.databaseComponents.model.PlayList;
+import fr.upem.soundroid.databaseComponents.model.playlist.PlayList;
+import fr.upem.soundroid.databaseComponents.providers.Music.MusicRepository;
 
 public class PlayListViewModel extends AndroidViewModel {
-    private MusicRepository mRepository;
     public PlayListRepository plRepository;
 
     public PlayListViewModel (Application application) {
         super(application);
-        mRepository = new MusicRepository(application);
         plRepository = new PlayListRepository(application);
     }
 

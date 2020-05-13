@@ -1,4 +1,4 @@
-package fr.upem.soundroid.databaseComponents.model;
+package fr.upem.soundroid.databaseComponents.model.music;
 
 import android.content.Context;
 import android.graphics.Bitmap;

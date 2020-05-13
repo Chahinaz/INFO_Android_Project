@@ -12,9 +12,9 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import java.util.List;
-import fr.upem.soundroid.databaseComponents.model.Music;
-import fr.upem.soundroid.databaseComponents.model.PlayList;
-import fr.upem.soundroid.databaseComponents.providers.PlayListViewModel;
+import fr.upem.soundroid.databaseComponents.model.music.Music;
+import fr.upem.soundroid.databaseComponents.model.playlist.PlayList;
+import fr.upem.soundroid.databaseComponents.providers.playlist.PlayListViewModel;
 import fr.upem.soundroid.utils.PlayListAdapter;
 
 public class DialogPlaylist extends DialogFragment {
