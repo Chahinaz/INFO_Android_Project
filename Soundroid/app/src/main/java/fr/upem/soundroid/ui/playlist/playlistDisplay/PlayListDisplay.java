@@ -20,7 +20,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import fr.upem.soundroid.databaseComponents.providers.playlist.PlayListViewModel;
-import fr.upem.soundroid.ui.playlist.DialogCreatePlaylist;
+import fr.upem.soundroid.utils.dialog.DialogCreatePlaylist;
 import fr.upem.soundroid.ui.playlist.MusicPlaylistFragment;
 import fr.upem.soundroid.utils.PlayListAdapter;
 

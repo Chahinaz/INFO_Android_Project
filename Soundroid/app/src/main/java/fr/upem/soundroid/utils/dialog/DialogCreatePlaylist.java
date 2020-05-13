@@ -1,4 +1,4 @@
-package fr.upem.soundroid.ui.playlist;
+package fr.upem.soundroid.utils.dialog;
 
 import android.app.Dialog;
 import android.content.DialogInterface;

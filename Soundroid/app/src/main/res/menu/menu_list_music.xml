@@ -3,5 +3,7 @@
 
         <item android:id="@+id/menu1" android:title="play next"/>
         <item android:id="@+id/menu2" android:title="add to playlist" />
-    <item android:id="@+id/menu3" android:title="send to url" />
+        <item android:id="@+id/menu3" android:title="send to url" />
+        <item android:id="@+id/menu4" android:title="add a tag" />
+        <item android:id="@+id/menu5" android:title="add a mark" />
 </menu>

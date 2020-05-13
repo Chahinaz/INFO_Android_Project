@@ -25,7 +25,7 @@ import java.util.List;
 
 import fr.upem.soundroid.databaseComponents.model.music.Music;
 import fr.upem.soundroid.databaseComponents.providers.playlist.PlayListViewModel;
-import fr.upem.soundroid.ui.playlist.DialogPlaylist;
+import fr.upem.soundroid.utils.dialog.DialogPlaylist;
 
 /**
  * Created by cloud on 06/05/2020.
@@ -73,8 +73,8 @@ public class MusicAdapter extends RecyclerView.Adapter<MusicAdapter.ViewHolder> 
                             case R.id.menu1:
                                 //call service
                                 return true;
-                            // add song to a playlist
 
+                            // add song to a playlist
                             case R.id.menu2:
                                 startFrag(musicList.get(position));
                                 return true;
@@ -82,7 +82,18 @@ public class MusicAdapter extends RecyclerView.Adapter<MusicAdapter.ViewHolder> 
                             case R.id.menu3:
                                 //if time
                                 return true;
+
+                             //add tagg to song
+                            case R.id.menu4:
+                                //if time
+                                return true;
+                             //add mark to song
+                            case R.id.menu5:
+                                //if time
+                                return true;
+
                             default:
+                                //should not happend
                                 return false;
                         }
                     }
