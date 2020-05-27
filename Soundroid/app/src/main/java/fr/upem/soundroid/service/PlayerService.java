@@ -141,12 +141,6 @@ public class PlayerService extends Service {
     }
 
 
-    public int duration(){
-        if(last5.peek() != null){
-            return Integer.parseInt(last5.peek().getDuration());
-        }
-        return -1;
-    }
 
     public long getActualTimeInMusic() {
         return player.getCurrentPosition();
