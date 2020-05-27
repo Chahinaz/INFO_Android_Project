@@ -137,5 +137,4 @@ public class PlayerService extends Service {
         return player.getCurrentPosition();
     }
 
-
 }
