@@ -133,15 +133,6 @@ public class PlayerService extends Service {
         return null;
     }
 
-    public int currentTime(){
-        if( player != null){
-            return player.getCurrentPosition();
-        }
-        return -1;
-    }
-
-
-
     public long getActualTimeInMusic() {
         return player.getCurrentPosition();
     }
