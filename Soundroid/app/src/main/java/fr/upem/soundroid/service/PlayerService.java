@@ -10,14 +10,14 @@ import android.provider.Settings;
 
 import androidx.annotation.Nullable;
 
-import fr.upem.soundroid.databaseComponents.model.music.Music;
-
 import java.io.IOException;
 import java.util.Collections;
 import java.util.List;
 import java.util.Stack;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingDeque;
+
+import fr.upem.soundroid.databaseComponents.model.music.Music;
 
 public class PlayerService extends Service {
     private MediaPlayer player = new MediaPlayer();
@@ -140,10 +140,17 @@ public class PlayerService extends Service {
         return -1;
     }
 
+
     public int duration(){
         if(last5.peek() != null){
             return Integer.parseInt(last5.peek().getDuration());
         }
         return -1;
     }
+
+    public long getActualTimeInMusic() {
+        return player.getCurrentPosition();
+    }
+
+
 }
