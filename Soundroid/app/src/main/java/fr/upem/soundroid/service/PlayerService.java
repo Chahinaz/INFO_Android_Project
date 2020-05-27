@@ -137,4 +137,8 @@ public class PlayerService extends Service {
         return player.getCurrentPosition();
     }
 
+    public long getActualTimeInMusic() {
+        return player.getCurrentPosition();
+    }
+
 }
