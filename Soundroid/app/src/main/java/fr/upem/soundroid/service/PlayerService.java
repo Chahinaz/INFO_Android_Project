@@ -137,8 +137,19 @@ public class PlayerService extends Service {
         return player.getCurrentPosition();
     }
 
-    public long getActualTimeInMusic() {
-        return player.getCurrentPosition();
+
+    public int currentTime(){
+        if( player != null){
+            return player.getCurrentPosition();
+        }
+        return -1;
+    }
+
+    public int duration(){
+        if(last5.peek() != null){
+            return Integer.parseInt(last5.peek().Duration);
+        }
+        return -1;
     }
 
 }
