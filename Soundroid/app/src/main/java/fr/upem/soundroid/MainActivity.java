@@ -198,4 +198,18 @@ public class MainActivity extends AppCompatActivity {
         }
         return null;
     }
+
+    public int TimeofMusic(){
+        if (mBound) {
+            return mBoundService.currentTime();
+        }
+        return -1;
+    }
+
+    public int currentDuration(){
+        if (mBound) {
+            return mBoundService.duration();
+        }
+        return -1;
+    }
 }

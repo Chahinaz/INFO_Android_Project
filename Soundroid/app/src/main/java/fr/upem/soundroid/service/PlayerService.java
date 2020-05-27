@@ -127,7 +127,23 @@ public class PlayerService extends Service {
     }
 
     public Music currentlyPlayed(){
-        return last5.peek();
+        if(last5.peek() != null){
+            return last5.peek();
+        }
+        return null;
     }
 
+    public int currentTime(){
+        if( player != null){
+            return player.getCurrentPosition();
+        }
+        return -1;
+    }
+
+    public int duration(){
+        if(last5.peek() != null){
+            return Integer.parseInt(last5.peek().getDuration());
+        }
+        return -1;
+    }
 }
