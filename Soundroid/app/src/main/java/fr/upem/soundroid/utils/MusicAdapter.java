@@ -25,7 +25,9 @@ import java.util.List;
 
 import fr.upem.soundroid.databaseComponents.model.music.Music;
 import fr.upem.soundroid.databaseComponents.providers.playlist.PlayListViewModel;
+import fr.upem.soundroid.utils.dialog.DialogMark;
 import fr.upem.soundroid.utils.dialog.DialogPlaylist;
+import fr.upem.soundroid.utils.dialog.DialogTag;
 
 /**
  * Created by cloud on 06/05/2020.
@@ -85,11 +87,11 @@ public class MusicAdapter extends RecyclerView.Adapter<MusicAdapter.ViewHolder> 
 
                              //add tagg to song
                             case R.id.menu4:
-                                //if time
+                                startTagDialog(musicList.get(position));
                                 return true;
                              //add mark to song
                             case R.id.menu5:
-                                //if time
+                                startMarkDialog(musicList.get(position));
                                 return true;
 
                             default:
@@ -103,6 +105,9 @@ public class MusicAdapter extends RecyclerView.Adapter<MusicAdapter.ViewHolder> 
             }
         });
     }
+
+
+
 
     @Override
     public int getItemCount() {
@@ -135,6 +140,17 @@ public class MusicAdapter extends RecyclerView.Adapter<MusicAdapter.ViewHolder> 
             }
         });
     }
+
+    private void startMarkDialog(Music music) {
+        DialogMark dm = new DialogMark(music);
+        dm.show(ctx.getSupportFragmentManager(),"");
+    }
+
+    private void startTagDialog(Music music) {
+        DialogTag dt = new DialogTag(music);
+        dt.show(ctx.getSupportFragmentManager(),"");
+    }
+
 
     public static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
