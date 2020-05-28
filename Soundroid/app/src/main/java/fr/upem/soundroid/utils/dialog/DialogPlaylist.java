@@ -58,7 +58,7 @@ public class DialogPlaylist extends DialogFragment {
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         AlertDialog.Builder builder = new AlertDialog.Builder(requireActivity());
         builder.setView(mRecyclerView)
-                .setMessage("testing")
+                .setMessage("Select a Playlist")
                 .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         // FIRE ZE MISSILES!

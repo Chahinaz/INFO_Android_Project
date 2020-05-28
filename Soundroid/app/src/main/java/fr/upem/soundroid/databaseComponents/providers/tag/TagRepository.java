@@ -32,4 +32,24 @@ public class TagRepository {
      LiveData<List<Tag>> getAll(){
         return tdao.getAll();
     }
+
+    LiveData<List<Music>> getTagMusicMark(String value){
+        LiveData<List<Music>> tagMusicMark = tdao.getTagMusicMark(value);
+        return tagMusicMark;
+    }
+
+    LiveData<List<Music>> getTagMusicMark(String name, String value){
+        LiveData<List<Music>> tagMusicMark = tdao.getTagMusicMark(name, value);
+        return tagMusicMark;
+    }
+
+    LiveData<List<Music>> getTagMusicValue(String value){
+        LiveData<List<Music>> tagMusicValue = tdao.getTagMusicValue(value);
+        return tagMusicValue;
+    }
+
+    LiveData<List<Music>> getTagMusicValue(String name, String value){
+        LiveData<List<Music>> tagMusicValue = tdao.getTagMusicValue(name, value);
+        return tagMusicValue;
+    }
 }

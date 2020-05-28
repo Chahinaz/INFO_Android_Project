@@ -4,10 +4,13 @@ import android.content.Context;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.SearchView;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -26,14 +29,19 @@ import java.util.List;
 import fr.upem.soundroid.MainActivity;
 import fr.upem.soundroid.databaseComponents.model.music.Music;
 import fr.upem.soundroid.databaseComponents.providers.Music.MusicViewModel;
+import fr.upem.soundroid.databaseComponents.providers.tag.TagViewModel;
 import fr.upem.soundroid.utils.MusicAdapter;
 
 public class musicSearch extends Fragment {
-    private  SearchView searchView;
+    private SearchView searchView;
+    private TextView tagValue;
+    private TextView tagMark;
 
     private MusicAdapter mA;
     public MusicViewModel mMusicViewModel;
     private RecyclerView recyclerView;
+
+    private TagViewModel tagViewModel;
 
     public static musicSearch newInstance() {
         return new musicSearch();
@@ -43,8 +51,10 @@ public class musicSearch extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         final View root = inflater.inflate(R.layout.music_search_fragment, container, false);
         searchView = root.findViewById(R.id.searchView);
+        tagValue = root.findViewById(R.id.tag);
+        tagMark = root.findViewById(R.id.mark);
         recyclerView = root.findViewById(R.id.my_recycler_view_for_music_search_frag);
-
+        tagViewModel = new ViewModelProvider(this).get(TagViewModel.class);
         return root;
     }
 
@@ -112,6 +122,57 @@ public class musicSearch extends Fragment {
                 return onQueryTextSubmit(newText);
             }
         });
+
+        tagValue.setOnEditorActionListener(new EditText.OnEditorActionListener() {
+            @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                if(!(searchView.equals(null))){
+                    String t = v.getText().toString();
+                    tagViewModel.getTagMusicValue(t).observe(requireActivity(), new Observer<List<Music>>() {
+                        @Override
+                        public void onChanged(List<Music> music) {
+                            mA.SetList(music);
+                            mA.notifyDataSetChanged();
+                        }
+                    });
+                } else {
+                    tagViewModel.getTagMusicValue(searchView.getTransitionName(), v.getTransitionName()).observe(getViewLifecycleOwner(), new Observer<List<Music>>() {
+                        @Override
+                        public void onChanged(List<Music> music) {
+                            mA.SetList(music);
+                            mA.notifyDataSetChanged();
+                        }
+                    });
+                }
+                return false;
+            }
+        });
+
+//        tagMark.setOnEditorActionListener(new EditText.OnEditorActionListener() {
+//            @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
+//            @Override
+//            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+//                if(!(searchView.equals(null))){
+//                    tagDao.getTagMusicMark(v.getTransitionName()).observe(getViewLifecycleOwner(), new Observer<List<Music>>() {
+//                        @Override
+//                        public void onChanged(List<Music> music) {
+//                            mA.SetList(music);
+//                            mA.notifyDataSetChanged();
+//                        }
+//                    });
+//                } else {
+//                    tagDao.getTagMusicMark(searchView.getTransitionName(), v.getTransitionName()).observe(getViewLifecycleOwner(), new Observer<List<Music>>() {
+//                        @Override
+//                        public void onChanged(List<Music> music) {
+//                            mA.SetList(music);
+//                            mA.notifyDataSetChanged();
+//                        }
+//                    });
+//                }
+//                return false;
+//            }
+//        });
     }
 
 

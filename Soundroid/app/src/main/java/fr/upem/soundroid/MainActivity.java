@@ -13,37 +13,34 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.IBinder;
-import android.os.SystemClock;
 import android.util.Log;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.Menu;
-import android.widget.TextView;
 import android.widget.Toast;
-
-import fr.upem.soundroid.databaseComponents.model.music.Music;
-import fr.upem.soundroid.databaseComponents.providers.Music.MusicViewModel;
-
-import fr.upem.soundroid.service.PlayerService;
-import fr.upem.soundroid.utils.ExternalStorageScanner;
-
-import com.example.soundroid.R;
-import com.google.android.material.navigation.NavigationView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
-import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
+
+import com.example.soundroid.R;
+import com.google.android.material.navigation.NavigationView;
 
 import java.util.List;
+
+import fr.upem.soundroid.databaseComponents.model.music.Music;
+import fr.upem.soundroid.databaseComponents.providers.Music.MusicViewModel;
+import fr.upem.soundroid.service.PlayerService;
+import fr.upem.soundroid.utils.ExternalStorageScanner;
 
 public class MainActivity<handler> extends AppCompatActivity {
     public MusicViewModel mMusicViewModel;
@@ -228,12 +225,14 @@ public class MainActivity<handler> extends AppCompatActivity {
     //====== Exposed funct for service ==============================//
 
     public void togglePause(){
-        if(!ispaused){
-            mBoundService.pause();
-            ispaused = true;
-        }else{
-            mBoundService.unPause();
-            ispaused = false;
+        if (mBound) {
+            if(!ispaused){
+                mBoundService.pause();
+                ispaused = true;
+            }else{
+                mBoundService.unPause();
+                ispaused = false;
+            }
         }
     }
 
