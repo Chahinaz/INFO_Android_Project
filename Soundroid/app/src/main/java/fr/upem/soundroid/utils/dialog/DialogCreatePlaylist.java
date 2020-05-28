@@ -19,7 +19,7 @@ public class DialogCreatePlaylist extends DialogFragment {
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         AlertDialog.Builder builder = new AlertDialog.Builder(requireActivity());
-        builder.setTitle("create a playlist");
+        builder.setTitle("Create a Playlist");
 
         final EditText input = new EditText(getActivity());
         input.setInputType(InputType.TYPE_CLASS_TEXT);
