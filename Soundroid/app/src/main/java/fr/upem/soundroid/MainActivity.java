@@ -4,16 +4,21 @@ import android.Manifest;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.ServiceConnection;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.os.BatteryManager;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.os.IBinder;
+import android.os.SystemClock;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Menu;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import fr.upem.soundroid.databaseComponents.model.music.Music;
@@ -40,7 +45,7 @@ import androidx.appcompat.widget.Toolbar;
 
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity<handler> extends AppCompatActivity {
     public MusicViewModel mMusicViewModel;
     private AppBarConfiguration mAppBarConfiguration;
     private int REQUEST_EXTERNAL = 0;
@@ -48,6 +53,8 @@ public class MainActivity extends AppCompatActivity {
     public PlayerService mBoundService;
     public boolean mBound = false;
     boolean ispaused = true;
+    private Handler batteriehandler;
+
     private ServiceConnection mConnection = new ServiceConnection() {
 
         @Override
@@ -71,6 +78,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         final Toolbar toolbar = findViewById(R.id.toolbar);
         AccessMediaStorage(this,null);
+        WriteExternalStorage(this,null);
         setSupportActionBar(toolbar);
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         NavigationView navigationView = findViewById(R.id.nav_view);
@@ -104,6 +112,8 @@ public class MainActivity extends AppCompatActivity {
             }
         }
         initDB();
+        this.batteriehandler = new Handler();
+        incrementRunnable.run();
     }
 
     @Override
@@ -138,6 +148,20 @@ public class MainActivity extends AppCompatActivity {
                 //terminate activity
             }
             ActivityCompat.requestPermissions(this,new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, REQUEST_EXTERNAL);
+        }
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
+    public void WriteExternalStorage(Context ctx, View view){
+        if(ContextCompat.checkSelfPermission(ctx,Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED){
+            //nothing we're cool
+        }
+        else{
+            if(ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)){
+                Toast.makeText(this,"Need permissions to access your storage (music browsing)", Toast.LENGTH_SHORT).show();
+                //terminate activity
+            }
+            ActivityCompat.requestPermissions(this,new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, REQUEST_EXTERNAL);
         }
     }
 
@@ -179,6 +203,26 @@ public class MainActivity extends AppCompatActivity {
             getSupportFragmentManager().popBackStack();
         }
 
+    }
+
+    private Runnable incrementRunnable = new Runnable() {
+        @Override
+        public void run() {
+            IntentFilter ifilter = new IntentFilter(Intent.ACTION_BATTERY_CHANGED);
+            Intent batteryStatus = getApplicationContext().registerReceiver(null, ifilter);
+            batteriehandler.postDelayed(MainActivity.this.getIncrementRunnable(), 6000);
+            int level = batteryStatus.getIntExtra(BatteryManager.EXTRA_LEVEL, -1);
+            int scale = batteryStatus.getIntExtra(BatteryManager.EXTRA_SCALE, -1);
+            float batteryPct = level * 100 / (float)scale;
+            if(batteryPct <= 20){
+                MainActivity.this.togglePause();
+            }
+        }
+
+    };
+
+    private Runnable getIncrementRunnable() {
+        return incrementRunnable;
     }
 
     //====== Exposed funct for service ==============================//

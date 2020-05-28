@@ -32,4 +32,8 @@ public class PlayListRepository {
         return allPlayList;
     }
 
+    LiveData<List<PlayList>> getAll(){
+        return pldao.getAll();
+    }
+
 }

@@ -19,6 +19,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <androidx.appcompat.widget.SwitchCompat
+            android:id="@+id/switch_pause_batterie"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Stop when batterie is low"
@@ -46,10 +47,11 @@
             android:textSize="18sp" />
 
         <androidx.appcompat.widget.AppCompatEditText
+            android:id="@+id/url_pref"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingLeft="30dp"
             android:hint="http://..."
+            android:paddingLeft="30dp"
             android:textColor="@android:color/black" />
     </androidx.appcompat.widget.LinearLayoutCompat>
 
@@ -72,6 +74,7 @@
             android:textSize="18sp" />
 
         <Button
+            android:id="@+id/exportDBButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingLeft="30dp"
@@ -80,6 +83,7 @@
     </androidx.appcompat.widget.LinearLayoutCompat>
 
     <Button
+        android:id="@+id/button_save_settings"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="SAVE"
