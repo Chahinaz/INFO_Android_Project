@@ -127,6 +127,7 @@ public class PlayerService extends Service {
     }
 
     public Music currentlyPlayed(){
+        if(last5.isEmpty()) return null;
         if(last5.peek() != null){
             return last5.peek();
         }
@@ -146,6 +147,7 @@ public class PlayerService extends Service {
     }
 
     public int duration(){
+        if(last5.isEmpty()) return -1;
         if(last5.peek() != null){
             return Integer.parseInt(last5.peek().Duration);
         }
