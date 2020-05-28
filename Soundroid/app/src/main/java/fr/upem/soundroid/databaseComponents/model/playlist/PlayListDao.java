@@ -17,5 +17,8 @@ public interface PlayListDao {
     @Query("SELECT DISTINCT(title) FROM playlist_table")
     LiveData<List<String>> getAllPlayList();
 
+    @Query("SELECT * FROM playlist_table")
+    LiveData<List<PlayList>> getAll();
+
 
 }

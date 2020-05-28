@@ -4,6 +4,9 @@ import android.app.Application;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
+import androidx.lifecycle.LiveData;
+
+import java.util.List;
 
 import fr.upem.soundroid.databaseComponents.model.Tag.Tag;
 
@@ -17,5 +20,9 @@ public class TagViewModel extends AndroidViewModel {
 
     public void insert(Tag t) {
         tRepository.insert(t);
+    }
+
+    public LiveData<List<Tag>> getAll(){
+        return  tRepository.getAll();
     }
 }

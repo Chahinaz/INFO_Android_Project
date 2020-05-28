@@ -10,6 +10,7 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelStoreOwner;
 
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -26,38 +27,68 @@ public class ExternalStorageWritter {
     private ArrayList<Music> mList = new ArrayList<>();
     private ArrayList<PlayList> pList = new ArrayList<>();
     private ArrayList<Tag> tList = new ArrayList<>();
+    private int isPrepared = 0;
 
 
-    public void PrepareExportBdd(ViewModelStoreOwner lifecycle,LifecycleOwner ctx){
-        MusicViewModel mvm = new ViewModelProvider(lifecycle).get(MusicViewModel.class);
-        PlayListViewModel pvm = new ViewModelProvider(lifecycle).get(PlayListViewModel.class);
-        TagViewModel tvm = new ViewModelProvider(lifecycle).get(TagViewModel.class);
+    public void PrepareExportBdd(final ViewModelStoreOwner lifecycle, final LifecycleOwner ctx, final Context ctx2){
+        final MusicViewModel mvm = new ViewModelProvider(lifecycle).get(MusicViewModel.class);
+        final PlayListViewModel pvm = new ViewModelProvider(lifecycle).get(PlayListViewModel.class);
+        final TagViewModel tvm = new ViewModelProvider(lifecycle).get(TagViewModel.class);
 
         mvm.getAllMusic().observe(ctx, new Observer<List<Music>>() {
             @Override
             public void onChanged(List<Music> music) {
                 mList = (ArrayList<Music>) music;
+                pvm.getAll().observe(ctx, new Observer<List<PlayList>>() {
+                    @Override
+                    public void onChanged(List<PlayList> strings) {
+                        pList = (ArrayList<PlayList>) strings;
+                        tvm.getAll().observe(ctx, new Observer<List<Tag>>() {
+                            @Override
+                            public void onChanged(List<Tag> tags) {
+                                tList = (ArrayList<Tag>)  tags;
+                                generateBackup(ctx2);
+                            }
+                        });
+                    }
+                });
+
             }
         });
-
     }
 
 
-    public void generateNoteOnSD(Context context, String sFileName, String sBody) {
-        try {
-            File root = new File(Environment.getExternalStorageDirectory(), "Notes");
-            if (!root.exists()) {
-                root.mkdirs();
+    private void generateBackup(Context context) {
+        if(mList == null || pList == null || tList == null){
+            return;
+        }
+
+        String sBody = "";
+        for(Music m : mList){ sBody += m.toString()+"\n"; }
+        for(PlayList t : pList){ sBody += t.toString()+"\n"; }
+        for(Tag t : tList){ sBody += t.toString(); }
+
+        long time = System.currentTimeMillis();
+        String name = "Backup"+time+".txt";
+
+
+        File file = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS),"backup");
+        if(!file.exists()){
+            boolean t = file.mkdir();
+            if(!t){
+                Toast.makeText(context, "cannot create file, please grante permission", Toast.LENGTH_SHORT).show();
             }
-            File gpxfile = new File(root, sFileName);
-            FileWriter writer = new FileWriter(gpxfile);
-            writer.append(sBody);
-            writer.flush();
-            writer.close();
-            Toast.makeText(context, "Saved", Toast.LENGTH_SHORT).show();
-        } catch (IOException e) {
+        }
+        try{
+            File towrite = new File(file, name);
+            FileOutputStream fileoutputstream = new FileOutputStream(towrite);
+            fileoutputstream.write(sBody.getBytes());
+            fileoutputstream.close();
+            Toast.makeText(context, "file created", Toast.LENGTH_SHORT).show();
+        }catch (Exception e){
             e.printStackTrace();
         }
+
     }
 
 }

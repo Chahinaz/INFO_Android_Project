@@ -27,6 +27,9 @@ public class PlayListViewModel extends AndroidViewModel {
         plRepository.insert(pl);
     }
 
+    public LiveData<List<PlayList>> getAll(){
+        return plRepository.getAll();
+    }
 
 
 }

@@ -22,4 +22,11 @@
         android:label="Music List"
         tools:layout="@layout/music_search_fragment"
         />
+
+    <fragment
+        android:id="@+id/setting"
+        android:name="fr.upem.soundroid.ui.settings.setting"
+        android:label="Music List"
+        tools:layout="@layout/seting_layout"
+        />
 </navigation>

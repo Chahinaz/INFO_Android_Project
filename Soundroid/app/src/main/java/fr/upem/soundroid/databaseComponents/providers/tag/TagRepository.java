@@ -2,6 +2,10 @@ package fr.upem.soundroid.databaseComponents.providers.tag;
 
 import android.app.Application;
 
+import androidx.lifecycle.LiveData;
+
+import java.util.List;
+
 import fr.upem.soundroid.databaseComponents.model.MusicDatabase;
 import fr.upem.soundroid.databaseComponents.model.Tag.Tag;
 import fr.upem.soundroid.databaseComponents.model.Tag.TagDao;
@@ -23,5 +27,9 @@ public class TagRepository {
                 tdao.insertMusic(t);
             }
         });
+    }
+
+     LiveData<List<Tag>> getAll(){
+        return tdao.getAll();
     }
 }

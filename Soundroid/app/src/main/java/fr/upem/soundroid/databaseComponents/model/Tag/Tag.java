@@ -19,4 +19,10 @@ public class Tag {
 
     @ColumnInfo(name = "isMark")
     public Boolean isMark;
+
+    public Tag(String mHash, String value, Boolean isMark) {
+        this.mHash = mHash;
+        this.value = value;
+        this.isMark = isMark;
+    }
 }

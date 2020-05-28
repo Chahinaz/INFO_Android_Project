@@ -1,6 +1,7 @@
 package fr.upem.soundroid.ui.player;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
@@ -54,6 +55,7 @@ public class MusicPlayerFragment extends Fragment {
     private Button shuffleSongs;
 
     private ProgressBar songTimeProgressBar;
+    private MainActivity main;
 
     @SuppressLint("ClickableViewAccessibility")
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -62,7 +64,7 @@ public class MusicPlayerFragment extends Fragment {
 
         final View root = inflater.inflate(R.layout.fragment_musicplayer, container, false);
 
-        ((MainActivity) requireActivity()).mMusicViewModel.getMusicByName("Money Made")
+        /*((MainActivity) requireActivity()).mMusicViewModel.getMusicByName("Money Made")
                 .observe(getViewLifecycleOwner(), new Observer<Music>() {
             @RequiresApi(api = Build.VERSION_CODES.Q)
             @Override
@@ -75,7 +77,7 @@ public class MusicPlayerFragment extends Fragment {
                 displayMusic(music);
                 //setProgressBar(root, music);
             }
-        });
+        });*/
 
         title = root.findViewById(R.id.title_player);
         artist = root.findViewById(R.id.artist_name_player);
@@ -84,8 +86,10 @@ public class MusicPlayerFragment extends Fragment {
         duration = root.findViewById(R.id.song_duration_text);
 
         playTime = root.findViewById(R.id.played_time_text);
-        //timeHandler = new Handler();
-
+        main = ((MainActivity) getActivity());
+        setProgressBar(root);
+        timeHandler = new Handler();
+        startPlayTime();
         setButtonListeners(root);
 
         return root;
@@ -94,6 +98,10 @@ public class MusicPlayerFragment extends Fragment {
     @RequiresApi(api = Build.VERSION_CODES.Q)
     @SuppressLint("SetTextI18n")
     private void displayMusic(Music music) {
+        if(music == null) return;
+        if(music.getThumbnail(getContext()) == null){
+            return;
+        }
         album_art.setImageBitmap(music.getThumbnail(getContext()));
         title.setText(music.getTitle());
         artist.setText(music.getAuthor());
@@ -201,12 +209,10 @@ public class MusicPlayerFragment extends Fragment {
         toast.show();
     }
 
-    private void setProgressBar(View root, Music music) {
-        songDuration = Integer.parseInt(music.getDuration())/1000;
-
+    private void setProgressBar(View root) {
         songTimeProgressBar = root.findViewById(R.id.music_player_progressBar);
         songTimeProgressBar.setMax(255); // max value supported by progressbar
-        songTimeProgressBar.setProgress(pauseTime);
+        songTimeProgressBar.setProgress(0);
     }
 
     private void setProcessBarProgress(int playingTime, int songDuration) {
@@ -216,13 +222,18 @@ public class MusicPlayerFragment extends Fragment {
     }
 
     private Runnable playingSongTime = new Runnable() {
+        @RequiresApi(api = Build.VERSION_CODES.Q)
         @Override
         public void run() {
-            playingTime += 1;
-            playTime.setText(getTime(playingTime));
-            setProcessBarProgress(playingTime, songDuration);
-            Log.d("Level.INFO", "time : " + playingTime + "out of " + songTimeProgressBar.getMax());
-            timeHandler.postDelayed(getPlayingSongTime(), 1000);
+            Music m = main.currentlyPlayed();
+            int currentpos = main.TimeofMusic();
+            int duration = main.currentDuration();
+            if(m != null && currentpos != -1 && duration != -1) {
+                displayMusic(m);
+                playTime.setText(getTime(currentpos));
+                setProcessBarProgress(currentpos, duration);
+                timeHandler.postDelayed(getPlayingSongTime(), 1000);
+            }
         }
     };
 
@@ -231,7 +242,7 @@ public class MusicPlayerFragment extends Fragment {
     }
 
     private void startPlayTime() {
-        //playingSongTime.run();
+        playingSongTime.run();
     }
 
     @Override
@@ -243,4 +254,6 @@ public class MusicPlayerFragment extends Fragment {
     public void onSaveInstanceState(@NonNull Bundle savedInstanceState) {
         super.onSaveInstanceState(savedInstanceState);
     }
+
+
 }
