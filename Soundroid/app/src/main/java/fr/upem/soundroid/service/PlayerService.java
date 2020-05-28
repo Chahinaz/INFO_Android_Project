@@ -27,6 +27,7 @@ public class PlayerService extends Service {
     private boolean play = false;
     private int position = 0;
 
+
     public class LocalBinder extends Binder {
         public PlayerService getService() {
             return PlayerService.this;
@@ -152,6 +153,13 @@ public class PlayerService extends Service {
             return Integer.parseInt(last5.peek().Duration);
         }
         return -1;
+    }
+
+
+    public void stopPlaying() {
+        if( player != null){
+            player.pause();
+        }
     }
 
 }

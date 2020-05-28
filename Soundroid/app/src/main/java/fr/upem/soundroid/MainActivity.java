@@ -212,11 +212,13 @@ public class MainActivity<handler> extends AppCompatActivity {
             int scale = batteryStatus.getIntExtra(BatteryManager.EXTRA_SCALE, -1);
             float batteryPct = level * 100 / (float)scale;
             if(batteryPct <= 20){
-                MainActivity.this.togglePause();
+                MainActivity.this.stopPlaying();
             }
         }
 
     };
+
+
 
     private Runnable getIncrementRunnable() {
         return incrementRunnable;
@@ -267,5 +269,11 @@ public class MainActivity<handler> extends AppCompatActivity {
             return mBoundService.duration();
         }
         return -1;
+    }
+
+    private void stopPlaying() {
+        if (mBound) {
+            mBoundService.stopPlaying();
+        }
     }
 }
