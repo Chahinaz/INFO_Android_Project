@@ -250,6 +250,12 @@ public class MainActivity<handler> extends AppCompatActivity {
         }
     }
 
+    public void AddPlaylist(List<Music> playlist){
+        if (mBound) {
+            mBoundService.setPlaylist(playlist,false);
+        }
+    }
+
     public Music currentlyPlayed(){
         if (mBound) {
             return mBoundService.currentlyPlayed();
@@ -271,9 +277,21 @@ public class MainActivity<handler> extends AppCompatActivity {
         return -1;
     }
 
-    private void stopPlaying() {
+    public void stopPlaying() {
         if (mBound) {
             mBoundService.stopPlaying();
+        }
+    }
+
+    public void playNext(){
+        if (mBound) {
+            mBoundService.setNext();
+        }
+    }
+
+    public void playPrev(){
+        if (mBound) {
+            mBoundService.playPrev();
         }
     }
 }

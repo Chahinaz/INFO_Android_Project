@@ -63,12 +63,6 @@ public class PlayerService extends Service {
         player.stop();
     }
 
-    public void playRingTone(){
-        player = MediaPlayer.create(getApplicationContext(),Settings.System.DEFAULT_RINGTONE_URI);
-        player.setLooping(true);
-        player.start();
-    }
-
     public void pause(){
         if (player.isPlaying()) {
             this.position = player.getCurrentPosition();
@@ -83,24 +77,25 @@ public class PlayerService extends Service {
         }
     }
 
-    private void setNext(){
-        player.stop();
-        player.reset();
-        if(playing.peek()!= null && play){
-            Music m = playing.poll();
+    public void playPrev(){
+        Music m = last5.pop(); // removing current
+        if(last5.peek() != null){
+            BlockingQueue<Music> backup = playing;
+            playing = new LinkedBlockingDeque<>();
             try {
-                player.setDataSource(m.MusicPath);
-            } catch (IOException e) {
+                playing.put(last5.pop());
+                playing.put(m);
+                playing.addAll(backup);
+            } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-            player.prepareAsync();
-            player.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
-                @Override
-                public void onPrepared(MediaPlayer mp) {
-                    mp.start();
-                }
-            });
-            last5.add(m);
+            setNext();
+        }
+    }
+
+    public void setNext(){
+        if(playing.peek()!= null){
+            addSongNow(playing.poll());
         }
     }
 
@@ -108,6 +103,12 @@ public class PlayerService extends Service {
         player.stop();
         player.release();
         player = MediaPlayer.create(getApplicationContext(), Uri.parse(m.getMusicPath()));
+        player.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+            @Override
+            public void onCompletion(MediaPlayer mp) {
+                setNext();
+            }
+        });
         last5.add(m);
         player.start();
     }

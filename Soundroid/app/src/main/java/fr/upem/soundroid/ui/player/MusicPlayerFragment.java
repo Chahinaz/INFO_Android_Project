@@ -197,11 +197,13 @@ public class MusicPlayerFragment extends Fragment {
     private void onPreviousSongClick(View v) {
         Toast toast = Toast.makeText(v.getContext(), "Play previous song", Toast.LENGTH_SHORT);
         toast.show();
+        main.playPrev();
     }
 
     private void onNextSongClick(View v) {
         Toast toast = Toast.makeText(v.getContext(), "Play next song", Toast.LENGTH_SHORT);
         toast.show();
+        main.playNext();
     }
 
     private void onShuffleClick(View v) {

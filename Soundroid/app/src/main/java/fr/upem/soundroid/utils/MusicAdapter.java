@@ -23,8 +23,10 @@ import com.example.soundroid.R;
 
 import java.util.List;
 
+import fr.upem.soundroid.MainActivity;
 import fr.upem.soundroid.databaseComponents.model.music.Music;
 import fr.upem.soundroid.databaseComponents.providers.playlist.PlayListViewModel;
+import fr.upem.soundroid.ui.playlist.MusicPlaylistFragment;
 import fr.upem.soundroid.utils.dialog.DialogMark;
 import fr.upem.soundroid.utils.dialog.DialogPlaylist;
 import fr.upem.soundroid.utils.dialog.DialogTag;
@@ -36,11 +38,13 @@ public class MusicAdapter extends RecyclerView.Adapter<MusicAdapter.ViewHolder> 
     private static ClickListener clickListener;
     private List<Music> musicList;
     private FragmentActivity ctx;
+    private MainActivity main;
 
     public MusicAdapter(List<Music> musicList, FragmentActivity ctx) {
         super();
         this.musicList = musicList;
         this.ctx = ctx;
+        main =  ((MainActivity) ctx);
     }
 
     @NonNull
@@ -73,9 +77,8 @@ public class MusicAdapter extends RecyclerView.Adapter<MusicAdapter.ViewHolder> 
                         switch (item.getItemId()) {
                             // set song as next
                             case R.id.menu1:
-                                //call service
+                                main.AddSongForLater(musicList.get(position));
                                 return true;
-
                             // add song to a playlist
                             case R.id.menu2:
                                 startFrag(musicList.get(position));
@@ -84,7 +87,6 @@ public class MusicAdapter extends RecyclerView.Adapter<MusicAdapter.ViewHolder> 
                             case R.id.menu3:
                                 //if time
                                 return true;
-
                              //add tagg to song
                             case R.id.menu4:
                                 startTagDialog(musicList.get(position));
@@ -129,6 +131,8 @@ public class MusicAdapter extends RecyclerView.Adapter<MusicAdapter.ViewHolder> 
     public Music getMusicAtPos(int i){
         return musicList.get(i);
     }
+
+    public List<Music> getList(){ return musicList;}
 
     private void startFrag(final Music music){
         PlayListViewModel plvm = new ViewModelProvider(ctx).get(PlayListViewModel.class);
