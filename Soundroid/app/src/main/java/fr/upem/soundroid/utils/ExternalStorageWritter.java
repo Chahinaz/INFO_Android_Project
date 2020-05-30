@@ -2,7 +2,6 @@ package fr.upem.soundroid.utils;
 
 import android.content.Context;
 import android.os.Environment;
-import android.util.Log;
 import android.widget.Toast;
 
 import androidx.lifecycle.LifecycleOwner;
@@ -15,12 +14,9 @@ import com.google.gson.reflect.TypeToken;
 
 import java.io.File;
 import java.io.FileOutputStream;
-import java.io.FileWriter;
-import java.io.IOException;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
 
 import fr.upem.soundroid.databaseComponents.model.Tag.Tag;
 import fr.upem.soundroid.databaseComponents.model.music.Music;

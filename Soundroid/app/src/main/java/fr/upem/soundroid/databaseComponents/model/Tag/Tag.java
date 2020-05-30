@@ -1,6 +1,5 @@
 package fr.upem.soundroid.databaseComponents.model.Tag;
 
-
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;

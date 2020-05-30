@@ -24,12 +24,9 @@ public class MusicPlaylistFragment extends Fragment {
         return root;
     }
 
-
-
     public void onStart() {
         super.onStart();
     }
-
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
