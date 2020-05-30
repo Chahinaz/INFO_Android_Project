@@ -6,11 +6,9 @@ import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Binder;
 import android.os.IBinder;
-import android.provider.Settings;
 
 import androidx.annotation.Nullable;
 
-import java.io.IOException;
 import java.util.Collections;
 import java.util.List;
 import java.util.Stack;

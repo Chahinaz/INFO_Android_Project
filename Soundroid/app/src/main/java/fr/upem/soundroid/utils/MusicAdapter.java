@@ -26,14 +26,10 @@ import java.util.List;
 import fr.upem.soundroid.MainActivity;
 import fr.upem.soundroid.databaseComponents.model.music.Music;
 import fr.upem.soundroid.databaseComponents.providers.playlist.PlayListViewModel;
-import fr.upem.soundroid.ui.playlist.MusicPlaylistFragment;
 import fr.upem.soundroid.utils.dialog.DialogMark;
 import fr.upem.soundroid.utils.dialog.DialogPlaylist;
 import fr.upem.soundroid.utils.dialog.DialogTag;
 
-/**
- * Created by cloud on 06/05/2020.
- */
 public class MusicAdapter extends RecyclerView.Adapter<MusicAdapter.ViewHolder> {
     private static ClickListener clickListener;
     private List<Music> musicList;
@@ -108,9 +104,6 @@ public class MusicAdapter extends RecyclerView.Adapter<MusicAdapter.ViewHolder> 
         });
     }
 
-
-
-
     @Override
     public int getItemCount() {
         return musicList.size();
@@ -154,7 +147,6 @@ public class MusicAdapter extends RecyclerView.Adapter<MusicAdapter.ViewHolder> 
         DialogTag dt = new DialogTag(music);
         dt.show(ctx.getSupportFragmentManager(),"");
     }
-
 
     public static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 

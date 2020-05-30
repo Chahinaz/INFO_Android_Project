@@ -9,10 +9,12 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelStoreOwner;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
 import java.io.File;
 import java.io.FileOutputStream;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -62,32 +64,34 @@ public class ExternalStorageWritter {
             return;
         }
 
-        String sBody = "";
-        for(Music m : mList){ sBody += m.toString()+"\n"; }
-        for(PlayList t : pList){ sBody += t.toString()+"\n"; }
-        for(Tag t : tList){ sBody += t.toString(); }
+        Gson mGson = new Gson();
+        Type musicListType = new TypeToken<List<Music>>() {}.getType();
+        Type playListType = new TypeToken<List<PlayList>>() {}.getType();
+        Type tagListType = new TypeToken<List<Tag>>() {}.getType();
+        StringBuilder sBody = new StringBuilder();
+        sBody.append(mGson.toJson(mList, musicListType));
+        sBody.append(mGson.toJson(pList, playListType));
+        sBody.append(mGson.toJson(tList, tagListType));
 
         long time = System.currentTimeMillis();
         String name = "Backup"+time+".txt";
-
 
         File file = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS),"backup");
         if(!file.exists()){
             boolean t = file.mkdir();
             if(!t){
-                Toast.makeText(context, "cannot create file, please grante permission", Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, "cannot create file, please grant permission", Toast.LENGTH_SHORT).show();
             }
         }
         try{
             File towrite = new File(file, name);
             FileOutputStream fileoutputstream = new FileOutputStream(towrite);
-            fileoutputstream.write(sBody.getBytes());
+            fileoutputstream.write(sBody.toString().getBytes());
             fileoutputstream.close();
             Toast.makeText(context, "file created", Toast.LENGTH_SHORT).show();
         }catch (Exception e){
             e.printStackTrace();
         }
-
     }
 
 }

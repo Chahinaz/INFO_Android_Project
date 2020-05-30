@@ -1,10 +1,8 @@
 package fr.upem.soundroid.ui.player;
 
 import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,10 +13,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import fr.upem.soundroid.MainActivity;
@@ -26,11 +22,7 @@ import com.example.soundroid.R;
 import fr.upem.soundroid.databaseComponents.model.music.Music;
 
 import android.os.Handler;
-import java.util.logging.Level;
 
-/**
- * Created by cloud on 14/04/2020.
- */
 public class MusicPlayerFragment extends Fragment {
 
     private ImageView album_art;
@@ -63,21 +55,6 @@ public class MusicPlayerFragment extends Fragment {
         MusicPlayerViewModel musicPlayerViewModel = new ViewModelProvider(this).get(MusicPlayerViewModel.class);
 
         final View root = inflater.inflate(R.layout.fragment_musicplayer, container, false);
-
-        /*((MainActivity) requireActivity()).mMusicViewModel.getMusicByName("Money Made")
-                .observe(getViewLifecycleOwner(), new Observer<Music>() {
-            @RequiresApi(api = Build.VERSION_CODES.Q)
-            @Override
-            public void onChanged(@Nullable final Music music) {
-                if(music == null) {
-                    Log.d(String.valueOf(Level.INFO), "music not found");
-                    return;
-                }
-                Log.d(String.valueOf(Level.INFO), "music <" + music.getTitle() +"> found");
-                displayMusic(music);
-                //setProgressBar(root, music);
-            }
-        });*/
 
         title = root.findViewById(R.id.title_player);
         artist = root.findViewById(R.id.artist_name_player);
