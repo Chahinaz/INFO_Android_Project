@@ -27,7 +27,6 @@ public class ExternalStorageWritter {
     private ArrayList<Music> mList = new ArrayList<>();
     private ArrayList<PlayList> pList = new ArrayList<>();
     private ArrayList<Tag> tList = new ArrayList<>();
-    private int isPrepared = 0;
 
 
     public void PrepareExportBdd(final ViewModelStoreOwner lifecycle, final LifecycleOwner ctx, final Context ctx2){
